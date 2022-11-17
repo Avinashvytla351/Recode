@@ -1,0 +1,31 @@
+{
+  "name": "buildit-front",
+  "version": "0.0.1",
+  "description": "BuildIT for IARE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index",
+    "scss": "node-sass scss/ -o css/"
+  },
+  "author": "Tayeeb, Krishna, Abubakar",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.8",
+    "express": "^4.17.1",
+    "inarray": "^0.1.3",
+    "lodash": "^4.17.21",
+    "monaco-editor": "^0.18.1",
+    "morgan": "^1.9.1",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.15",
+    "request": "^2.88.0",
+    "sass": "^1.23.0",
+    "url-exists": "^1.0.3",
+    "xlsx": "^0.17.0"
+  }
+}

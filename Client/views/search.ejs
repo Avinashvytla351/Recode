@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Results</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A sidebar menu as seen on the Google Nexus 7 website"
+    />
+    <meta
+      name="keywords"
+      content="google nexus 7 menu, css transitions, sidebar, side menu, slide out menu"
+    />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <link rel="stylesheet" href="../../css/navadmin.css" />
+    <link rel="icon" type="image/png" href="../../images/logo-backup2.png" />
+    <script src="/adminjs/modernizr.custom.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <% include ../views/partials/adminpanel %>
+      <header style="text-indent: 130px; height: 200px">
+        <h1>Editing<span style="color: white"><%= data.subtitle ? data.subtitle : "MCQ 's" %></span></h1>
+      </header>
+    </div>
+
+    <div class="b" style="width: 25%; margin: auto; margin-top: 45px">
+      <h3 style="color: white">
+        <center>Enter <%= data.subtitle %> Id</center>
+      </h3>
+      <form onsubmit=" return checkUsers()" action="<%= data.posturl %>" method="<%= data.method %>">
+        <input
+          type="text"
+          placeholder="Id"
+          name="questionId"
+          id="One"
+        />
+        <input type="submit" class="btn-green" value="Search"/>
+      </form>
+    </div>
+    <script>
+      function checkUsers(){
+        var datapart = document.getElementById("One").value
+        var user = "<%= data.username%>"
+        console.log(user.slice(7),datapart.slice(0,3))
+        if(user=="ADMIN"){
+          return true
+        }
+        if (datapart.length>3 && datapart.slice(0,3)==user.slice(7)){
+          return true
+        }
+        else{
+          return false
+        }
+      }
+    </script>
+    <script src="/adminjs/classie.js"></script>
+    <script src="/adminjs/gnmenu.js"></script>
+    <script>
+      new gnMenu(document.getElementById("gn-menu"));
+    </script>
+  </body>
+</html>

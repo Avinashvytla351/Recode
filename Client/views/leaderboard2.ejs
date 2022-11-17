@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="../images/iare-chapter/iare-logo.png"
+      type="image/x-icon"
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+        max-width: 100vw;
+        padding: 0;
+        margin: 0;
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgb(155, 155, 155);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgb(110, 110, 110);
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        max-width: 100%;
+      }
+      body {
+        font-family: poppins;
+        width: 100%;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+      }
+      /*---------------- LEVEL 1 --------------*/
+      #header {
+        background-color: rgb(7, 48, 66);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        height: 70px;
+      }
+      #image {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        margin-top: -2vh;
+        margin-bottom: -2vh;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+      #image img {
+        width: 70px;
+        height: 80px;
+      }
+      #home {
+        display: flex;
+        align-items: center;
+        width: 20vw;
+      }
+      #home a {
+        text-decoration: none;
+        padding: 5px 15px;
+        border-radius: 6mm;
+        color: black;
+        background: white;
+        margin: 0 5px;
+        display: flex;
+        align-items: center;
+      }
+      #home a span {
+        font-size: larger;
+        margin-left: 10px;
+        color: rgb(55, 206, 123);
+        font-weight: bold;
+      }
+      #banner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 60vw;
+      }
+      #banner p {
+        margin: 0;
+      }
+      #container {
+        width: 100%;
+        min-height: 100vh;
+        background: rgb(248, 248, 250);
+      }
+      /*---------------- LEVEL 2 --------------*/
+      #result {
+        font-size: 18px;
+        padding-bottom: 3px;
+        color: rgb(61, 220, 132);
+        font-weight: 600;
+      }
+      #contest {
+        font-size: 28px;
+      }
+      #username {
+        font-family: poppins;
+        font-size: 20px;
+        margin-right: -1vw;
+      }
+      table img {
+        width: 60px;
+        height: 60px;
+        margin-top: 5px;
+        border-radius: 50%;
+      }
+      #main {
+        width: 90%;
+        display: flex;
+        align-items: center;
+        margin: auto;
+        margin-top: 50px;
+        border-bottom: none;
+      }
+      table {
+        width: 98%;
+        border-collapse: separate;
+        border-spacing: 0 0.7em;
+        text-align: center;
+      }
+      table p {
+        margin: 0;
+      }
+      .row {
+        -webkit-box-shadow: 0px 1px 18px -4px rgba(224, 224, 224, 1);
+        -moz-box-shadow: 0px 1px 18px -4px rgba(224, 224, 224, 1);
+        box-shadow: 0px 1px 18px -4px rgba(224, 224, 224, 1);
+        border-radius: 1.5mm;
+        background: white;
+      }
+      td {
+        font-weight: 400;
+        color: rgb(58, 58, 58);
+      }
+      td:first-child,
+      th:first-child {
+        border-bottom-left-radius: 1.5mm;
+        border-top-left-radius: 1.5mm;
+      }
+      td:last-child,
+      th:last-child {
+        border-top-right-radius: 1.5mm;
+        border-bottom-right-radius: 1.5mm;
+      }
+      th {
+        padding: 10px 0;
+        background: rgb(55, 206, 123);
+        color: white;
+        font-weight: 400;
+      }
+      .colour {
+        background: rgba(255, 217, 0, 0.703);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="home">
+          <a href="/">HOME<span class="material-icons-round"> east </span></a>
+        </div>
+        <div id="banner">
+          <div id="result">
+            <p>Leaderboard</p>
+          </div>
+          <div id="contest">
+            <p><%= url.contestId %> - <span id="contestName"></span></p>
+          </div>
+        </div>
+        <div id="image">
+          <p id="username"><%= imgUsername %>&emsp;</p>
+          <img
+            id="img"
+            alt="No Image"
+            width="50"
+            src="https://iare-data.s3.ap-south-1.amazonaws.com/uploads/<%= imgBranch %>/<%= imgUsername %>.jpg"
+          />
+        </div>
+      </div>
+      <div id="main">
+        <table>
+          <tr style="width: 100%">
+            <th>S.No</th>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Roll Number</th>
+            <th>Branch</th>
+            <th>Score</th>
+          </tr>
+          <tbody id="user-leaderboard" class="content-center"></tbody>
+        </table>
+      </div>
+    </div>
+    <script>
+      var rollnumbervalue = "<%= imgUsername %>";
+      function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == " ") {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      async function getUsers() {
+        let position, score, username, user, userData;
+        var data = JSON.parse(`<%- JSON.stringify(data) %>`);
+        data.sort((a, b) => b.totalScore - a.totalScore);
+
+        for (let i = 0; i < data.length; i++) {
+          position = i + 1;
+          score = data[i].totalScore;
+          username = data[i].username;
+
+          user = await fetch("<%= url.serverurl %>/users/" + username, {
+            headers: { Authorization: getCookie("token") },
+          });
+
+          userData = await user.json();
+
+          duplicate(
+            position,
+            username,
+            username.toUpperCase(),
+            userData.name,
+            userData.branch,
+            score
+          );
+        }
+      }
+
+      function duplicate(position, username, username2, name, branch, score) {
+        var item = document.createElement("tr");
+        if (rollnumbervalue === username2) {
+          item.classList.add("colour");
+        }
+        item.classList.add("row");
+        item.innerHTML = `
+<td><p class="position">${position}</p></td>
+<td class="image">
+	<img src="https://iare-data.s3.ap-south-1.amazonaws.com/uploads/${branch}/${username2}.jpg" alt="">
+</td>
+<td><p class="name">${name}</p></td>
+<td><p class="username">${username}</p></td>
+<td><p class="branch">${branch}</p></td>
+<td><p class="points">${score} PTS</p></td>
+  `;
+        document.getElementById("user-leaderboard").appendChild(item);
+      }
+
+      async function addContestName() {
+        let contest = await fetch(
+          "<%= url.serverurl %>/contests/<%= url.contestId %>",
+          {
+            headers: { Authorization: getCookie("token") },
+          }
+        );
+        let res = await contest.json();
+        document.getElementById("contestName").innerText = res[0].contestName;
+      }
+      addContestName();
+      getUsers();
+    </script>
+  </body>
+</html>

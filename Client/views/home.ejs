@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <title>BuildIT</title>
+
+  <!-- mobile responsive meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <!-- ** Plugins Needed for the Project ** -->
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+  <!-- slick slider -->
+  <link rel="stylesheet" href="plugins/slick/slick.css">
+  <!-- themefy-icon -->
+  <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
+  <!--Favicon-->
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel = "icon" type = "image/png" href = "../../images/logo-backup2.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+    rel="stylesheet"
+  />
+  <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet">
+  <link rel="stylesheet" href="../css/style2.css">
+  <style>
+    .counters{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      margin: 10px 0px;
+    }
+    .counter{
+      font-family: poppins;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: x-large;
+      background: rgb(243, 243, 243);
+      color: rgb(0, 110, 219);
+      padding: 25px;
+      border-radius: 2mm;
+      box-shadow: 15px 15px 0px rgba(33, 33, 33, 0.2);
+      font-weight: bold;
+      transition: 0.25s;
+    }
+    .counter:hover{
+      box-shadow: 2px 2px 0px rgba(33, 33, 33, 0.2);
+    }
+    .counter span{
+      font-size: medium;
+      font-weight: 400;
+      text-shadow:inset 1px 1px rgba(0, 18, 76, 0.2);
+    }
+    .main-space{
+        background: white;
+        color: black;
+    }
+    .content .small{
+      color: rgb(76, 76, 76);
+    }
+    .content .big{
+      color: rgb(39, 39, 39);
+      overflow: hidden;
+      border-right: 0.05em solid orange;
+      width: 0;
+      animation: typing 1s steps(8, end) forwards, blink-caret 0.8s infinite;
+    }
+    @keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
+  }
+}
+  </style>
+</head>
+
+<body>
+
+<!-- hero area -->
+
+<section class="main-space" id="parallax">
+  <%- include('../views/partials/header2') %>
+  <div class="lsideup"><span class="material-icons-round">
+science
+</span></div>
+  <div class="lside"><span class="material-icons-round">
+send
+</span></div>
+  <div class="content">
+    <div class="small">Welcome To</div>
+    <div class="big">BuildIT</div>
+  </div>
+  <div class="rside">
+    <span class="material-icons-round">data_object</span>
+  </div>
+  </div>
+  <% if(!imgUsername) {%>
+  <a href="/login" id="start">Get Started</a>
+  <%} else {%>
+    <a href="/contest" id="start">Get Started</a>
+    <%}%>
+  <div class="line-circle">
+    <div class="lines"></div>
+    <div class="circle"></div>
+    <div class="lines"></div>
+  </div>
+</section>
+<section class="langs">
+  <div class="lang-img">
+    <img src="../images/Python.png" alt="" >
+  </div>
+  <div class="lang-content">
+    <div class="lang-title"><span class="material-icons-outlined">science</span>Experiments</div>
+    <div class="lang-body">Choose the right <br> programming language</div>
+    <div class="lang-body-small">
+      BuildIT provides you to choose your language of choice which brings out the best programmer in you 
+    </div>
+  </div>
+</section>
+
+<section class="ads">
+  <span class="ad" style="flex-grow: 1;">
+  <div class="adv">
+        <div class="adv-title" >
+      <span class="title" style="background: rgb(255, 228, 118);"><span class="material-icons-outlined">fitness_center</span>Tutorials</span></div>
+    <div class="adv-content">
+    <div class="adv-body">Practice coding challenges</div>
+    
+    <div class="adv-img">
+      <img src="../images/code.png" alt="">
+    </div>
+    </div>
+  </div>
+  </span>
+  <span class="ad">
+  <div class="adv">
+        <div class="adv-title">
+      <span class="title" style="background: rgb(186, 218, 255);"><span class="material-icons-outlined">leaderboard</span>Leaderboard</span><span class="title" style="background: rgb(183,243,151);"><span class="material-icons-outlined">person_outline</span>Dashboard</span></div>
+    <div class="adv-content">
+    <div class="adv-body">Review and Evaluate your performance with Leaderboard and Dashboard</div>
+    
+    <div class="adv-img">
+      <img src="../images/graph.png" alt="">
+    </div>
+    </div>
+  </div>
+  </span>
+</section>
+
+<div class="counters">
+  <p class="counter" id="total"><span>Total Views</span> <%=totalCount%></p>
+  <p class="counter" id="weekly"><span>Daily Views</span><%= dayCount%></p>
+  <p class="counter" id="counter"><span>Weekly Views</span><%= weeklyCount%></p>
+</div>
+<%- include('../views/partials/footer') %>
+
+<!-- jQuery -->
+<script src="plugins/jQuery/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="plugins/bootstrap/bootstrap.min.js"></script>
+<!-- slick slider -->
+<script src="plugins/slick/slick.min.js"></script>
+<!-- filter -->
+<script src="plugins/shuffle/shuffle.min.js"></script>
+
+<!-- Main Script -->
+<form method="POST" autocomplete="off" name="google-sheet" style="display: none;">
+  <input type="text" name="date" id="date">
+  <input type="text" name="month" id="month">
+  <input type="text" name="time" id="time">
+  <input type="text" name="username" id="username">
+  <input type="text" id="ip" name="ip" style="display: none" />
+</form>
+<script>
+  const googleSheetsApi = "<%= googleSheetsApi %>"
+  var formdate=document.getElementById("date")
+  var formmonth=document.getElementById("month")
+  var formtime=document.getElementById("time")
+  var formuser=document.getElementById("username")
+  var dateObj = new Date();
+  var month = dateObj.getMonth() + 1; //months from 1-12
+  var day = dateObj.getDate();
+  var year = dateObj.getFullYear();
+  var time=dateObj.getHours()+":"+dateObj.getMinutes()+":"+dateObj.getSeconds()
+  newdate = year + "/" + month + "/" + day;
+  formdate.value=newdate
+  formmonth.value=month+"/"+dateObj.getFullYear()
+  formtime.value=time
+  formuser.value="<%=imgUsername%>"
+  const countEl = document.getElementById("counter");
+  fetch("https://api.ipify.org/?format=json")
+.then(results=>results.json())
+.then(data=>{
+  document.getElementById("ip").value=data.ip
+  const scriptURL ="https://script.google.com/macros/s/"+googleSheetsApi;
+  const form = document.forms["google-sheet"];
+  fetch(scriptURL, { method: "POST", body: new FormData(form) })
+    .then()
+    .catch((error) => console.error("Error!", error.message));
+})
+
+</script>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
