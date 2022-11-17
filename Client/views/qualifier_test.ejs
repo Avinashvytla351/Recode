@@ -2,7 +2,7 @@
 <html lang="zxx">
   <head>
     <meta charset="utf-8" />
-    <title>BuildIT Lab</title>
+    <title>Play House</title>
 
     <!-- mobile responsive meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,39 +10,62 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
-
-    <!-- ** Plugins Needed for the Project ** -->
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css" />
-    <!-- slick slider -->
-    <link rel="stylesheet" href="plugins/slick/slick.css" />
-    <!-- themefy-icon -->
-    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css" />
-
-    <!-- Main Stylesheet -->
-    <link href="css/style.css" rel="stylesheet" />
-
     <!--Favicon-->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="icon" type="image/png" href="../../images/logo-backup2.png" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+
     <link
       href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="../css/style2.css" />
+    <style>
+      .ahead {
+        color: rgb(26, 115, 232) !important;
+      }
+      .dura {
+        background: rgb(100, 162, 255) !important;
+      }
+      .dura2 {
+        border-color: rgb(100, 162, 255) !important;
+      }
+      .participate {
+        background: rgb(146, 190, 255) !important;
+      }
+      .contest::before {
+        background: rgb(227, 238, 254) !important;
+      }
+      .contest-doodle {
+        background: rgb(99, 236, 152) !important;
+      }
+    </style>
   </head>
 
   <body>
-    <%- include('../views/partials/header2') %>
-
     <!-- page title -->
-    <section class="page-title bg-primary position-relative">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 text-center">
-            <!-- <h1 class="text-white font-tertiary">BuildIT Laboratory</h1> -->
-            <h1 class="text-white font-tertiary">National Qualifier Tests</h1>
+    <section class="main-area">
+      <%- include('../views/partials/header2') %>
+      <div class="area-left">
+        <img src="../images/code2.svg" alt="" />
+      </div>
+      <div class="area-right">
+        <div class="the-area-wrap">
+          <div class="area-titles">
+            <div class="atitle ahead">BuildIT</div>
+            <div class="atitle">Play House</div>
+            <div class="atitle-small">Explore various contests.</div>
+          </div>
+          <div class="search">
+            <input
+              type="search"
+              name=""
+              id="search"
+              placeholder="Search Contests"
+              onkeyup="searchFunc()"
+            />
           </div>
         </div>
       </div>
@@ -50,97 +73,99 @@
     <!-- /page title -->
 
     <!-- blog -->
-    <section class="section">
-      <div class="container">
-        <h3 class="font-tertiary mb-5" style="color: green">
-          Present Qualifier Test
-        </h3>
+    <section class="contests">
+      <div class="contest-doodle"></div>
+      <div class="contests-container">
+        <div class="contests-title">Active Contests</div>
         <div class="row">
-          <h5 id="login"></h5>
           <% for(let i = data.length-1; i >= 0; i--){ %> <% if
           (data[i].contestDate === new Date().toISOString().slice(0,10)) { %>
-          <div class="col-lg-4 col-sm-6 mb-4">
-            <article class="card shadow">
-              <!-- <img class="rounded card-img-top" src="images/contests/<%= data[i].contestId %>.jpg" alt="<%= data[i].contestId %>"> -->
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a
-                    style="white-space: pre-line"
-                    class="text-dark"
-                    href="/qualifier_test/<%= data[i].contestId %>"
-                    ><%= data[i].contestName %></a
-                  >
-                </h4>
-
-                <p>
-                  <% if (data[i].contestDuration) { %>
-                  <b>Duration: </b><%= data[i].contestDuration %> Mins <% } %>
-                </p>
-                <p>
-                  <% if (data[i].contestDate) { %>
-                  <b>Date: </b><%= data[i].contestDate %> <% } %>
-                </p>
-                <p>
+          <div class="contest">
+            <a
+              href="qualifier_test/<%= data[i].contestId %>"
+              target="_blank"
+              class="cardy active"
+            >
+              <div class="act-tag">
+                <span class="material-icons-round"> star </span>Active &nbsp
+              </div>
+              <div class="card-content">
+                <div class="title"><%= data[i].contestName %></div>
+                <div class="details">
+                  <span class="dura">
+                    <% if (data[i].contestDuration) { %> <%=
+                    data[i].contestDuration + "M" %> <% } %>
+                    <div class="det-abs">Duration</div>
+                  </span>
                   <% if (data[i].contestStartTime && data[i].contestEndTime) {
                   %>
-                  <b>Timing: </b><%= data[i].contestStartTime %> to <%=
-                  data[i].contestEndTime %> <% } %>
-                </p>
-                <br />
-                <a
-                  href="/qualifier_test/<%= data[i].contestId %>"
-                  class="btn btn-xs btn-primary"
-                  >Participate</a
-                >
+                  <span class="dura2"
+                    ><%=
+                    data[i].contestStartTime.slice(0,2)+":"+data[i].contestStartTime.slice(2,4)
+                    %>
+                    <div class="det-abs">Start</div>
+                  </span>
+                  <span class="dura2"
+                    ><%=
+                    data[i].contestEndTime.slice(0,2)+":"+data[i].contestEndTime.slice(2,4)
+                    %>
+                    <div class="det-abs">End</div>
+                  </span>
+                  <% } %>
+                </div>
+                <div class="con-date">
+                  <% if (data[i].contestDate) { %>
+                  <b>Date: </b><%= data[i].contestDate %> <% } %>
+                </div>
+                <div class="participate">Participate</div>
               </div>
-            </article>
+            </a>
           </div>
           <% } %> <% } %>
         </div>
       </div>
-      <div class="container">
-        <h3 class="font-tertiary mb-5" style="color: grey">
-          Past Qualifier Tests
-        </h3>
+      <div class="contests-container">
+        <div class="contests-title">Inactive Contests</div>
         <div class="row">
-          <h5 id="login"></h5>
           <% for(let i = data.length-1; i >= 0; i--){ %> <% if
           (data[i].contestDate !== new Date().toISOString().slice(0,10)) { %>
-          <div class="col-lg-4 col-sm-6 mb-4">
-            <article class="card shadow">
-              <!-- <img class="rounded card-img-top" src="images/contests/<%= data[i].contestId %>.jpg" alt="<%= data[i].contestId %>"> -->
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a
-                    style="white-space: pre-line"
-                    class="text-dark"
-                    href="/qualifier_test/<%= data[i].contestId %>"
-                    ><%= data[i].contestName %></a
-                  >
-                </h4>
-                <p>
-                  <% if (data[i].contestDuration) { %>
-                  <b>Duration: </b><%= data[i].contestDuration %> Mins <% } %>
-                </p>
-                <p>
-                  <% if (data[i].contestDate) { %>
-                  <b>Date: </b><%= data[i].contestDate %> <% } %>
-                </p>
-                <p>
+          <div class="contest">
+            <a
+              href="qualifier_test/<%= data[i].contestId %>"
+              target="_blank"
+              class="cardy"
+            >
+              <div class="card-content">
+                <div class="title"><%= data[i].contestName %></div>
+                <div class="details">
+                  <span class="dura">
+                    <% if (data[i].contestDuration) { %> <%=
+                    data[i].contestDuration + "M" %> <% } %>
+                    <div class="det-abs">Duration</div>
+                  </span>
                   <% if (data[i].contestStartTime && data[i].contestEndTime) {
                   %>
-                  <b>Timing: </b><%= data[i].contestStartTime %> to <%=
-                  data[i].contestEndTime %> <% } %>
-                </p>
-                <br />
-                <a
-                  href="/qualifier_test/<%= data[i].contestId %>"
-                  class="btn btn-xs btn-primary"
-                  >Practice</a
-                >
+                  <span class="dura2"
+                    ><%=
+                    data[i].contestStartTime.slice(0,2)+":"+data[i].contestStartTime.slice(2,4)
+                    %>
+                    <div class="det-abs">Start</div>
+                  </span>
+                  <span class="dura2"
+                    ><%=
+                    data[i].contestEndTime.slice(0,2)+":"+data[i].contestEndTime.slice(2,4)
+                    %>
+                    <div class="det-abs">End</div>
+                  </span>
+                  <% } %>
+                </div>
+                <div class="con-date">
+                  <% if (data[i].contestDate) { %>
+                  <b>Date: </b><%= data[i].contestDate %> <% } %>
+                </div>
+                <div class="participate">Participate</div>
               </div>
-              <!--contests qualifier_tests-->
-            </article>
+            </a>
           </div>
           <% } %> <% } %>
         </div>
@@ -148,50 +173,21 @@
     </section>
 
     <script>
-      function getCookie(name) {
-        var dc = document.cookie;
-        var prefix = name + "=";
-        var begin = dc.indexOf("; " + prefix);
-        if (begin == -1) {
-          begin = dc.indexOf(prefix);
-          if (begin != 0) return null;
-        } else {
-          begin += 2;
-          var end = document.cookie.indexOf(";", begin);
-          if (end == -1) {
-            end = dc.length;
+      const searchFunc = () => {
+        let value = document.getElementById("search").value;
+        value = value.toUpperCase();
+        let cards = document.querySelectorAll(".contest");
+        cards.forEach((card) => {
+          let cardVal = card.querySelector(".title").innerText;
+          cardVal = cardVal.toUpperCase();
+          if (cardVal.indexOf(value) >= 0) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
           }
-        }
-        // because unescape has been deprecated, replaced with decodeURI
-        //return unescape(dc.substring(begin + prefix.length, end));
-        return decodeURI(dc.substring(begin + prefix.length, end));
-      }
-
-      function doSomething() {
-        var myCookie = getCookie("token");
-
-        if (myCookie == null) {
-          // do cookie doesn't exist stuff;
-          console.log("came");
-          document.getElementById("login").innerHTML = "Login to view contests";
-        }
-      }
-      doSomething();
+        });
+      };
     </script>
-
-    <!-- /footer -->
     <%- include('../views/partials/footer') %>
-
-    <!-- jQuery -->
-    <script src="plugins/jQuery/jquery.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="plugins/bootstrap/bootstrap.min.js"></script>
-    <!-- slick slider -->
-    <script src="plugins/slick/slick.min.js"></script>
-    <!-- filter -->
-    <script src="plugins/shuffle/shuffle.min.js"></script>
-
-    <!-- Main Script -->
-    <script src="js/script.js"></script>
   </body>
 </html>

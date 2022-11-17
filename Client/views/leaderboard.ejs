@@ -143,20 +143,20 @@
         margin: 50px;
       }
       .cardy {
-        width: 70%;
-        padding: 5px;
-        border-radius: 5mm;
-        background: rgb(88, 88, 88);
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: space-evenly;
-        margin: auto;
-        border: 0.55mm solid rgb(18, 18, 18);
-        position: relative;
-        overflow: hidden;
-        z-index: 0;
-        transition: 0.25s;
+        width: 70% !important;
+        padding: 5px !important;
+        border-radius: 5mm !important;
+        background: rgb(88, 88, 88) !important;
+        display: flex !important;
+        align-items: center !important;
+        flex-direction: column !important;
+        justify-content: space-evenly !important;
+        margin: auto !important;
+        border: 0.55mm solid rgb(18, 18, 18) !important;
+        position: relative !important;
+        overflow: hidden !important;
+        z-index: 0 !important;
+        transition: 0.25s !important;
       }
       .cardy::before {
         content: "";
@@ -166,7 +166,7 @@
         width: 0px;
         height: 0px;
         transform: translate(-50%, -50%);
-        background: white;
+        background: white !important;
         transition: width 0.5s, height 0.5s;
         border-radius: 50%;
         z-index: -1;
@@ -219,8 +219,8 @@
         border-radius: 50%;
       }
       .card-content {
-        color: white;
-        text-align: center;
+        color: white !important;
+        text-align: center !important;
       }
       .cardy:hover .corner {
         background: rgb(88, 88, 88);
@@ -231,59 +231,13 @@
         color: white;
       }
       .cardy:hover .card-content {
-        color: black;
+        color: black !important;
       }
       .centerit {
         margin: auto;
       }
       .join {
         margin-bottom: 50px;
-      }
-      .footer-section {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-      }
-      .bg-dar {
-        padding-top: 20px;
-        padding-bottom: 20px;
-        background-color: rgb(239, 240, 241);
-      }
-      .footer-section a:hover {
-        color: rgb(34, 34, 34);
-      }
-      .footer-left {
-        width: 30%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 30px;
-      }
-      .footer-right {
-        width: 20%;
-        align-items: center;
-        justify-content: center;
-      }
-      .footer-left-titles a {
-        text-decoration: none;
-        font-family: poppins;
-        font-size: x-large;
-        color: rgb(54, 54, 54);
-        font-weight: 600;
-      }
-      .footer-left-links a {
-        text-decoration: none;
-        font-family: poppins;
-        font-size: 14px;
-        color: rgb(97, 97, 97);
-      }
-      .footer-right p {
-        font-family: poppins;
-        font-size: 14px;
-        color: rgb(97, 97, 97);
-        width: 100%;
-        text-align: center;
       }
       .certificate {
         margin: auto;
@@ -359,7 +313,7 @@
                 <img src="<%= toppers[i].imgUrl %>" />
               </div>
               <div class="card-content">
-                <p class="title"><%= toppers[i].name %></p>
+                <p class="title2"><%= toppers[i].name %></p>
                 <p class="title2"><%= toppers[i].username %></p>
               </div>
             </div>
@@ -458,31 +412,6 @@
         $("#leaderboard").DataTable();
       });
     </script>
-    <footer class="bg-dar" id="footers">
-      <div class="footer-section">
-        <div class="footer-left">
-          <div class="footer-left-titles">
-            <a href="http://buildit.iare.ac.in/" target="_blank">Build-IT</a>
-          </div>
-          <div class="footer-left-links">
-            <a href="https://www.iare.ac.in" target="_blank">IARE</a>
-          </div>
-          <div class="footer-left-links">
-            <a href="https://forms.gle/J6rtgiSRx4msuuQT6" target="_blank"
-              >Feedback</a
-            >
-          </div>
-        </div>
-        <div class="footer-right">
-          <p>
-            Copyright ©
-            <script>
-              var CurrentYear = new Date().getFullYear();
-              document.write(CurrentYear);
-            </script>
-          </p>
-        </div>
-      </div>
-    </footer>
+    <%- include('../views/partials/footer') %>
   </body>
 </html>

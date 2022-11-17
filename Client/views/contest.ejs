@@ -2,7 +2,7 @@
 <html lang="zxx">
   <head>
     <meta charset="utf-8" />
-    <title>BuildIT Lab</title>
+    <title>Experiments</title>
 
     <!-- mobile responsive meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,18 +10,6 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
-
-    <!-- ** Plugins Needed for the Project ** -->
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css" />
-    <!-- slick slider -->
-    <link rel="stylesheet" href="plugins/slick/slick.css" />
-    <!-- themefy-icon -->
-    <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css" />
-
-    <!-- Main Stylesheet -->
-    <link href="css/style.css" rel="stylesheet" />
-
     <!--Favicon-->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="icon" type="image/png" href="../../images/logo-backup2.png" />
@@ -33,102 +21,31 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="../css/style2.css" />
-    <style>
-      .cardy {
-        text-decoration: none;
-        font-family: Inconsolata;
-        border: 0.3mm solid rgb(37, 37, 37);
-        padding: 20px;
-        min-height: 260px;
-        border-radius: 2mm;
-        display: block;
-        padding-top: 15px;
-      }
-      .cardy:hover {
-        box-shadow: 4px 4px rgba(65, 34, 142, 0.219);
-      }
-      .card-content {
-        min-height: 220px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-      .title {
-        font-size: 22.75px;
-        color: rgb(55, 55, 55);
-        font-weight: 700;
-        line-height: 30px;
-      }
-      .details {
-        display: flex;
-        flex-direction: column;
-        background: rgb(240, 240, 245);
-        font-size: large;
-        border-radius: 2mm;
-        padding: 10px 25px;
-        color: rgb(27, 15, 55);
-        position: relative;
-        justify-content: center;
-        align-items: center;
-        text-align: justify;
-        margin: 5px 0;
-      }
-      .icon {
-        position: absolute;
-        top: -3px;
-        left: -3px;
-        font-size: medium;
-        color: rgb(95, 95, 95);
-        width: 25px;
-        height: 25px;
-        background: white;
-        border-radius: 50%;
-        text-align: center;
-        line-height: 25px;
-      }
-      .participate {
-        width: 100%;
-        background: rgb(65, 34, 142);
-        color: white;
-        font-size: larger;
-        padding: 5px 0;
-        border-radius: 1mm;
-        text-align: center;
-      }
-      .active .details {
-        background: rgb(241, 250, 245);
-      }
-      .active .participate {
-        background: rgb(64, 181, 107);
-      }
-      .active:hover {
-        box-shadow: 4px 4px rgba(72, 195, 117, 0.235);
-      }
-    </style>
   </head>
 
   <body>
-    <%- include('../views/partials/header2') %>
-
     <!-- page title -->
-    <section class="page-title bg-primary position-relative">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 text-center">
-            <h1 class="text-white font-tertiary">BuildIT Laboratory</h1>
+    <section class="main-area">
+      <%- include('../views/partials/header2') %>
+      <div class="area-left">
+        <img src="../images/code.png" alt="" />
+      </div>
+      <div class="area-right">
+        <div class="the-area-wrap">
+          <div class="area-titles">
+            <div class="atitle ahead">BuildIT</div>
+            <div class="atitle">Experiments</div>
+            <div class="atitle-small">Explore various contests.</div>
+          </div>
+          <div class="search">
+            <input
+              type="search"
+              name=""
+              id="search"
+              placeholder="Search Contests"
+              onkeyup="searchFunc()"
+            />
           </div>
         </div>
       </div>
@@ -136,87 +53,62 @@
     <!-- /page title -->
 
     <!-- blog -->
-    <section class="section">
-      <div class="container">
-        <h3 class="font-tertiary mb-5" style="color: green">Active Contests</h3>
+    <section class="contests">
+      <div class="contest-doodle"></div>
+      <div class="contests-container">
+        <div class="contests-title">Active Contests</div>
         <div class="row">
-          <h5 id="login"></h5>
           <% for(let i = data.length-1; i >= 0; i--){ %> <% if
           (data[i].contestDate === new Date().toISOString().slice(0,10)) { %>
-          <div class="col-lg-4 col-sm-6 mb-4">
+          <div class="contest">
             <a <% if(data[i].contestPassword){ %>
               href="contestPassword/<%= data[i].contestId %>" <%} else{%>
               href="contests/<%= data[i].contestId %>" <%}%> target="_blank"
               class="cardy active" >
+              <div class="act-tag">
+                <span class="material-icons-round"> star </span>Active &nbsp
+              </div>
               <div class="card-content">
                 <div class="title"><%= data[i].contestName %></div>
                 <div class="details">
-                  <span class="material-icons icon"> watch_later </span>
-                  <span>
-                    <% if (data[i].contestDuration) { %>
-                    <b>Duration: </b><%= data[i].contestDuration %> Mins <% } %>
+                  <span class="dura">
+                    <% if (data[i].contestDuration) { %> <%=
+                    data[i].contestDuration + "M" %> <% } %>
+                    <div class="det-abs">Duration</div>
                   </span>
-                  <span>
-                    <% if (data[i].contestDate) { %>
-                    <b>Date: </b><%= data[i].contestDate %> <% } %>
-                  </span>
-                  <span>
-                    <% if (data[i].contestStartTime && data[i].contestEndTime) {
+                  <% if (data[i].contestStartTime && data[i].contestEndTime) {
+                  %>
+                  <span class="dura2"
+                    ><%=
+                    data[i].contestStartTime.slice(0,2)+":"+data[i].contestStartTime.slice(2,4)
                     %>
-                    <b>Timing: </b><%= data[i].contestStartTime %> to <%=
-                    data[i].contestEndTime %> <% } %>
+                    <div class="det-abs">Start</div>
                   </span>
+                  <span class="dura2"
+                    ><%=
+                    data[i].contestEndTime.slice(0,2)+":"+data[i].contestEndTime.slice(2,4)
+                    %>
+                    <div class="det-abs">End</div>
+                  </span>
+                  <% } %>
+                </div>
+                <div class="con-date">
+                  <% if (data[i].contestDate) { %>
+                  <b>Date: </b><%= data[i].contestDate %> <% } %>
                 </div>
                 <div class="participate">Participate</div>
               </div>
             </a>
-            <!--<article class="card shadow">
-               <img class="rounded card-img-top" src="images/contests/<%= data[i].contestId %>.jpg" alt="<%= data[i].contestId %>">
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a
-                    style="white-space: pre-line"
-                    class="text-dark"
-                    href="contests/<%= data[i].contestId %>"
-                    ><%= data[i].contestName %></a
-                  >
-                </h4>
-
-                <p>
-                  <% if (data[i].contestDuration) { %>
-                  <b>Duration: </b><%= data[i].contestDuration %> Mins <% } %>
-                </p>
-                <p>
-                  <% if (data[i].contestDate) { %>
-                  <b>Date: </b><%= data[i].contestDate %> <% } %>
-                </p>
-                <p>
-                  <% if (data[i].contestStartTime && data[i].contestEndTime) {
-                  %>
-                  <b>Timing: </b><%= data[i].contestStartTime %> to <%=
-                  data[i].contestEndTime %> <% } %>
-                </p>
-                <br />
-                <a
-                  href="contests/<%= data[i].contestId %>"
-                  class="btn btn-xs btn-primary"
-                  >Participate</a
-                >
-              </div>
-            </article>-->
           </div>
           <% } %> <% } %>
         </div>
       </div>
-      <div class="container">
-        <h3 class="font-tertiary mb-5" style="color: grey">
-          Inactive Contests
-        </h3>
+      <div class="contests-container">
+        <div class="contests-title">Inactive Contests</div>
         <div class="row">
-          <h5 id="login"></h5>
           <% for(let i = data.length-1; i >= 0; i--){ %> <% if
           (data[i].contestDate !== new Date().toISOString().slice(0,10)) { %>
-          <div class="col-lg-4 col-sm-6 mb-4">
+          <div class="contest">
             <a
               href="contests/<%= data[i].contestId %>"
               target="_blank"
@@ -225,58 +117,34 @@
               <div class="card-content">
                 <div class="title"><%= data[i].contestName %></div>
                 <div class="details">
-                  <span class="material-icons icon"> watch_later </span>
-                  <span>
-                    <% if (data[i].contestDuration) { %>
-                    <b>Duration: </b><%= data[i].contestDuration %> Mins <% } %>
+                  <span class="dura">
+                    <% if (data[i].contestDuration) { %> <%=
+                    data[i].contestDuration + "M" %> <% } %>
+                    <div class="det-abs">Duration</div>
                   </span>
-                  <span>
-                    <% if (data[i].contestDate) { %>
-                    <b>Date: </b><%= data[i].contestDate %> <% } %>
-                  </span>
-                  <span>
-                    <% if (data[i].contestStartTime && data[i].contestEndTime) {
+                  <% if (data[i].contestStartTime && data[i].contestEndTime) {
+                  %>
+                  <span class="dura2"
+                    ><%=
+                    data[i].contestStartTime.slice(0,2)+":"+data[i].contestStartTime.slice(2,4)
                     %>
-                    <b>Timing: </b><%= data[i].contestStartTime %> to <%=
-                    data[i].contestEndTime %> <% } %>
+                    <div class="det-abs">Start</div>
                   </span>
+                  <span class="dura2"
+                    ><%=
+                    data[i].contestEndTime.slice(0,2)+":"+data[i].contestEndTime.slice(2,4)
+                    %>
+                    <div class="det-abs">End</div>
+                  </span>
+                  <% } %>
+                </div>
+                <div class="con-date">
+                  <% if (data[i].contestDate) { %>
+                  <b>Date: </b><%= data[i].contestDate %> <% } %>
                 </div>
                 <div class="participate">Participate</div>
               </div>
             </a>
-            <!--<article class="card">
-               <img class="rounded card-img-top" src="images/contests/<%= data[i].contestId %>.jpg" alt="<%= data[i].contestId %>"> 
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a
-                    style="white-space: pre-line"
-                    class="text-dark"
-                    href="contests/<%= data[i].contestId %>"
-                    ><%= data[i].contestName %></a
-                  >
-                </h4>
-                <p>
-                  <% if (data[i].contestDuration) { %>
-                  <b>Duration: </b><%= data[i].contestDuration %> Mins <% } %>
-                </p>
-                <p>
-                  <% if (data[i].contestDate) { %>
-                  <b>Date: </b><%= data[i].contestDate %> <% } %>
-                </p>
-                <p>
-                  <% if (data[i].contestStartTime && data[i].contestEndTime) {
-                  %>
-                  <b>Timing: </b><%= data[i].contestStartTime %> to <%=
-                  data[i].contestEndTime %> <% } %>
-                </p>
-                <br />
-                <a
-                  href="contests/<%= data[i].contestId %>"
-                  class="btn btn-xs btn-primary"
-                  >Participate</a
-                >
-              </div>
-            </article>-->
           </div>
           <% } %> <% } %>
         </div>
@@ -284,77 +152,21 @@
     </section>
 
     <script>
-      function getCookie(name) {
-        var dc = document.cookie;
-        var prefix = name + "=";
-        var begin = dc.indexOf("; " + prefix);
-        if (begin == -1) {
-          begin = dc.indexOf(prefix);
-          if (begin != 0) return null;
-        } else {
-          begin += 2;
-          var end = document.cookie.indexOf(";", begin);
-          if (end == -1) {
-            end = dc.length;
+      const searchFunc = () => {
+        let value = document.getElementById("search").value;
+        value = value.toUpperCase();
+        let cards = document.querySelectorAll(".contest");
+        cards.forEach((card) => {
+          let cardVal = card.querySelector(".title").innerText;
+          cardVal = cardVal.toUpperCase();
+          if (cardVal.indexOf(value) >= 0) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
           }
-        }
-        // because unescape has been deprecated, replaced with decodeURI
-        //return unescape(dc.substring(begin + prefix.length, end));
-        return decodeURI(dc.substring(begin + prefix.length, end));
-      }
-
-      function doSomething() {
-        var myCookie = getCookie("token");
-
-        if (myCookie == null) {
-          // do cookie doesn't exist stuff;
-          console.log("came");
-          document.getElementById("login").innerHTML = "Login to view contests";
-        }
-      }
-      doSomething();
+        });
+      };
     </script>
-
-    <!-- footer -->
-    <!--<footer class="bg-dark footer-section">
-  <div class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <h5 class="text-light">Email</h5>
-          <p class="text-white paragraph-lg font-secondary">steve.fruits@email.com</p>
-        </div>
-        <div class="col-md-4">
-          <h5 class="text-light">Phone</h5>
-          <p class="text-white paragraph-lg font-secondary">+880 2544 658 256</p>
-        </div>
-        <div class="col-md-4">
-          <h5 class="text-light">Address</h5>
-          <p class="text-white paragraph-lg font-secondary">125/A, CA Commercial Area, California, USA</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="border-top text-center border-dark py-5">
-    <p class="mb-0 text-light">Copyright ©<script>
-        var CurrentYear = new Date().getFullYear()
-        document.write(CurrentYear)
-      </script> a theme by <a href="themefisher.com">themefisher.com</a></p>
-  </div>
-------footer------->
-    <!-- /footer -->
     <%- include('../views/partials/footer') %>
-
-    <!-- jQuery -->
-    <script src="plugins/jQuery/jquery.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="plugins/bootstrap/bootstrap.min.js"></script>
-    <!-- slick slider -->
-    <script src="plugins/slick/slick.min.js"></script>
-    <!-- filter -->
-    <script src="plugins/shuffle/shuffle.min.js"></script>
-
-    <!-- Main Script -->
-    <script src="js/script.js"></script>
   </body>
 </html>
