@@ -36,6 +36,9 @@ body {
   width: 100vw;
   background: #41228e;
 }
+button:focus {
+  outline: none;
+}
 .nav-chapter-logo2 {
   height: 70px;
   margin-left: 1vw;
