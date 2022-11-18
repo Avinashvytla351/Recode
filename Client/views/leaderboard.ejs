@@ -142,23 +142,23 @@
         font-size: x-large;
         margin: 50px;
       }
-      .cardy {
-        width: 70% !important;
-        padding: 5px !important;
-        border-radius: 5mm !important;
-        background: rgb(88, 88, 88) !important;
-        display: flex !important;
-        align-items: center !important;
-        flex-direction: column !important;
-        justify-content: space-evenly !important;
-        margin: auto !important;
-        border: 0.55mm solid rgb(18, 18, 18) !important;
-        position: relative !important;
-        overflow: hidden !important;
-        z-index: 0 !important;
-        transition: 0.25s !important;
+      .cardyx {
+        width: 70%;
+        padding: 5px;
+        border-radius: 5mm;
+        background: rgb(88, 88, 88);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-evenly;
+        margin: auto;
+        border: 0.55mm solid rgb(18, 18, 18);
+        position: relative;
+        overflow: hidden;
+        z-index: 0;
+        transition: 0.25s;
       }
-      .cardy::before {
+      .cardyx::before {
         content: "";
         position: absolute;
         top: 400px;
@@ -171,11 +171,11 @@
         border-radius: 50%;
         z-index: -1;
       }
-      .cardy:hover::before {
+      .cardyx:hover::before {
         width: 1000px;
         height: 1000px;
       }
-      .cardy:hover {
+      .cardyx:hover {
         box-shadow: 6px 6px rgba(0, 0, 0, 0.15);
       }
       .card-top {
@@ -218,19 +218,19 @@
         height: 125px;
         border-radius: 50%;
       }
-      .card-content {
+      .card-content2 {
         color: white !important;
         text-align: center !important;
       }
-      .cardy:hover .corner {
+      .cardyx:hover .corner {
         background: rgb(88, 88, 88);
         color: white;
       }
-      .cardy:hover .ranks {
+      .cardyx:hover .ranks {
         background: rgb(88, 88, 88);
         color: white;
       }
-      .cardy:hover .card-content {
+      .cardyx:hover .card-content2 {
         color: black !important;
       }
       .centerit {
@@ -286,7 +286,7 @@
       <div class="containers">
         <!-- Toppers -->
         <div class="main-title">
-          SkillUp 365 <span>Skill Enhancement Program</span>
+          Leaderboard <span>Coding performance monitor</span>
         </div>
         <div class="join">
           <a href="/SkillRegister">
@@ -302,7 +302,7 @@
         <div class="rows centerit">
           <% for (let i = 0; i < 3; i++){ %>
           <div class="column">
-            <div class="cardy">
+            <div class="cardyx">
               <div class="card-top">
                 <div class="corner">
                   <span class="material-icons-round"> emoji_events </span>
@@ -312,7 +312,7 @@
               <div class="card-img">
                 <img src="<%= toppers[i].imgUrl %>" />
               </div>
-              <div class="card-content">
+              <div class="card-content2">
                 <p class="title2"><%= toppers[i].name %></p>
                 <p class="title2"><%= toppers[i].username %></p>
               </div>
