@@ -16,12 +16,12 @@
 	</head>
 	<body>
 		<div class="container">
-			<% include ../views/partials/adminpanel %>
+			<%- include('../views/partials/adminpanel') %>
 			<header>
 				<h1>Manage Questions<span style="color:white">Add Questions</span></h1>	
 			</header> 
-			<div class="main-block">
-			<form action="<%= data.serverurl %>/questionsExcel" method = "POST" enctype="multipart/form-data">
+			<div class="main-block" style="width: 100%;">
+			<form action="<%= data.serverurl %>/questionsExcel" method = "POST" enctype="multipart/form-data" style="margin: auto; display:block;">
 				<h1>Upload Excel File Here</h1>
 			  <input type="file" name="upfile" value="">
 				<textarea type="hidden" name="token" id="token2" value="<%= token %>" style="display: none;"></textarea>
@@ -30,57 +30,124 @@
 				  <button class= "submit" type="submit" href="/">Send</button>
 				</div>
 			  </form>
-			  <hr><br>
 			</div>
 			<div class="main-block">
 			<form action="<%= data.serverurl %>/questions" method = "POST">
 				<h1>Add Question Manually</h1>
-				<h4>Question ID</h4>
-				<input name="questionId" type="text"/>
-				<h4>Question Name</h4>
-				<input name="questionName" type="text"/>
-				<h4>Contest ID</h4>
-				<input name="contestId" type="text"/>
-				<p class="comments">Description</p>
-				<textarea name="questionDescriptionText" rows="30"></textarea>
-				<p class="comments">Input</p>
-				<textarea name="questionInputText" rows="10"></textarea>
-				<p class="comments">Output</p>
-				<textarea name="questionOutputText" rows="10"></textarea>
-				<p class="comments">Example Input 1:</p>
-				<textarea name="questionExampleInput1" rows="10"></textarea>
-				<p class="comments">Example Output 1:</p>
-				<textarea name="questionExampleOutput1" rows="10"></textarea>
-				<p class="comments">Example Input 2:</p>
-				<textarea name="questionExampleInput2" rows="10"></textarea>
-				<p class="comments">Example Output 2:</p>
-				<textarea name="questionExampleOutput2" rows="10"></textarea>
-				<p class="comments">Example Input 3:</p>
-				<textarea name="questionExampleInput3" rows="10"></textarea>
-				<p class="comments">Example Output 3:</p>
-				<textarea name="questionExampleOutput3" rows="10"></textarea>
-				<p class="comments">Hidden Input 1:</p>
-				<textarea name="questionHiddenInput1" rows="10"></textarea>
-				<p class="comments">Hidden Output 1:</p>
-				<textarea name="questionHiddenOutput1" rows="10"></textarea>
-				<p class="comments">Hidden Input 2:</p>
-				<textarea name="questionHiddenInput2" rows="10"></textarea>
-				<p class="comments">Hidden Output 2:</p>
-				<textarea name="questionHiddenOutput2" rows="10"></textarea>
-				<p class="comments">Hidden Input 3:</p>
-				<textarea name="questionHiddenInput3" rows="10"></textarea>
-				<p class="comments">Hidden Output 3:</p>
-				<textarea name="questionHiddenOutput3" rows="10"></textarea>
-				<p class="comments">Explanation</p>
-				<textarea name="questionExplanation" rows="30"></textarea>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Question ID</p>
+				<input name="questionId"  placeholder="QID" class="small" />
+				</span>
+				<span class="inputf">
+				<p class="comments">Question Name</p>
+				<input name="questionName"   placeholder="Name" class="small"/>
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Contest ID</p>
+				<input name="contestId"   class="small" placeholder="ID"/>
+				</span>
+				<span class="inputf">
 				<p class="comments">Author:</p>
-				<textarea name="author" rows="10"></textarea>
+				<input name="author"  id="author" class="small" placeholder="Author">
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Description</p>
+				<textarea name="questionDescriptionText" rows="30" id="0" class="larger" placeholder="Question Description"></textarea> </span></span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Input</p>
+				<textarea name="questionInputText" rows="10" id="1" class="vlarge" placeholder="Input Format"></textarea>
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Output</p>
+				<textarea name="questionOutputText" rows="10" id="2" class="vlarge" placeholder="Output Format"></textarea>
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Example Input 1:</p>
+				<textarea name="questionExampleInput1" rows="10" id="3" class="large"></textarea>
+				</span>
+				<span class="inputf">
+				<p class="comments">Example Output 1:</p>
+				<textarea name="questionExampleOutput1" rows="10" id="4" class="large"></textarea>
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Example Input 2:</p>
+				<textarea name="questionExampleInput2" rows="10" id="5" class="large"></textarea>
+				</span>
+				<span class="inputf">
+				<p class="comments">Example Output 2:</p>
+				<textarea name="questionExampleOutput2" rows="10" id="6" class="large"></textarea>
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Example Input 3:</p>
+				<textarea name="questionExampleInput3" rows="10" id="7" class="large"></textarea>
+				</span>
+				<span class="inputf">
+				<p class="comments">Example Output 3:</p>
+				<textarea name="questionExampleOutput3" rows="10" id="8" class="large"></textarea>
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Hidden Input 1:</p>
+				<textarea name="questionHiddenInput1" rows="10" id="9" class="large"></textarea>
+				</span>
+				<span class="inputf">
+				<p class="comments">Hidden Output 1:</p>
+				<textarea name="questionHiddenOutput1" rows="10" id="10" class="large"></textarea>
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Hidden Input 2:</p>
+				<textarea name="questionHiddenInput2" rows="10" id="11" class="large"></textarea>
+				</span>
+				<span class="inputf">
+				<p class="comments">Hidden Output 2:</p>
+				<textarea name="questionHiddenOutput2" rows="10" id="12" class="large"></textarea>
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Hidden Input 3:</p>
+				<textarea name="questionHiddenInput3" rows="10" id="13" class="large"></textarea>
+				</span>
+				<span class="inputf">
+				<p class="comments">Hidden Output 3:</p>
+				<textarea name="questionHiddenOutput3" rows="10" id="14" class="large"></textarea>
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
+				<p class="comments">Explanation</p>
+				<textarea name="questionExplanation" rows="30" id="questionExplanation" class="larger"></textarea>
+				</span>
+				</span>
+				<span class="allInputs">
+				<span class="inputf">
 				<p class="comments">Editorial:</p>
-				<textarea name="editorial" rows="10"></textarea>
+				<input name="editorial"  id="editorial" class="small">
+				</span>
+				<span class="inputf">
 				<p class="comments"><b>Difficulty</b></p>
 				<input type="radio" name="difficulty" value="Easy"> Easy </input>
 				<input type="radio" name="difficulty" value="Medium"> Medium </input>
 				<input type="radio" name="difficulty" value="Hard"> Hard </input> 
+				</span>
+				</span>
 				<hr>
 				<textarea type="hidden" name="token" id="token" value="<%= token %>" style="display: none;"></textarea>
 
@@ -98,5 +165,6 @@
 			document.getElementById("token2").value = "<%= token %>";
 
 		</script>
+		<%- include('../views/partials/footer') %>
 	</body>
 </html>

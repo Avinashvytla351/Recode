@@ -21,7 +21,7 @@
   </head>
   <body>
     <div class="container">
-      <% include ../views/partials/adminpanel %>
+      <%- include('../views/partials/adminpanel') %>
       <header>
         <h1>Manage Courses<span style="color: white">Add Course</span></h1>
       </header>
@@ -66,5 +66,6 @@
     <script>
       document.getElementById("token").value = "<%= token %>";
     </script>
+    <%- include('../views/partials/footer') %>
   </body>
 </html>

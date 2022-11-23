@@ -265,35 +265,6 @@ app.get("/admin/add/skillup", async (req, res) => {
   });
 });
 
-app.get("/admin/add/event", async (req, res) => {
-  let url = {
-    url: clientRoute,
-    serverurl: serverRoute,
-  };
-
-  let options = {
-    url: serverRoute + "/isAdmin",
-    method: "get",
-    headers: {
-      authorization: req.cookies.token,
-    },
-    json: true,
-  };
-
-  request(options, function (err, response, body) {
-    if (
-      body.success ||
-      req.cookies.username === "21951A05Z9" ||
-      req.cookies.username === "19951A0535"
-    ) {
-      res.render("codechefForm", { data: url, token: req.cookies.token });
-    } else {
-      body.message = "Unauthorized access";
-      res.render("error", { data: body, imgUsername: req.cookies.username });
-    }
-  });
-});
-
 app.get("/admin/addUser", async (req, res) => {
   let url = {
     url: clientRoute,

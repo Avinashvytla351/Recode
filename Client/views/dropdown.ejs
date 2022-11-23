@@ -16,14 +16,14 @@
   </head>
   <body>
       <div class="container">
-        <% include ../views/partials/adminpanel %>
+        <%- include('../views/partials/adminpanel') %>
           <header>
-            <h1><%= data.title ? data.title : "Results" %><span style="color: white"><%= data.subtitle ? data.subtitle : "Contests" %></span></h1>	
+            <h1><%= data.title ? data.title : "Results" %><span style="color: black;"><%= data.subtitle ? data.subtitle : "Contests" %></span></h1>	
 		  </header> 
 
 
 <div class = "b">
-		<h3 style="color:white">Select <%= data.subtitle ? data.subtitle : "Contests" %></h3>
+		<h3 style="color:black; text-align: center;">Select <%= data.subtitle ? data.subtitle : "Contests" %></h3>
   <form action="<%= data.posturl %>" method = "<%= data.method %>">
     <% if (data.subtitle){ %>
       <select id="contestId" name="questionId">
@@ -51,5 +51,6 @@
 		<script>
 			new gnMenu( document.getElementById( 'gn-menu' ) );
 		</script>
+    <%- include('../views/partials/footer') %>
   </body>
 </html>

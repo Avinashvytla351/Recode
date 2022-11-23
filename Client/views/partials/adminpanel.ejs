@@ -5,29 +5,13 @@
       <div class="gn-scroller">
         <ul class="gn-menu">
           <li>
-            <a
-              class="gn-icon gn-icon-download"
-              href="<%= data.url %>/admin/add/event"
-              >IARE Codechef Chapter</a
-            >
-            <!-- Add Events -->
-          </li>
-          <li>
-            <a
-              class="gn-icon gn-icon-download"
-              href="<%= data.url %>/admin/add/skillup"
-              >Skill Up 365</a
-            >
-            <!-- Add Skill Up Scores -->
-          </li>
-          <li>
-            <a class="gn-icon gn-icon-download">Qualifier Test</a>
+            <div class="gn-icon gn-icon-download">Play House</div>
             <ul class="gn-submenu">
               <li>
                 <a
                   class="gn-icon gn-icon-add"
                   href="<%= data.url %>/admin/add/qualifier_test"
-                  >Add Qualifier Test</a
+                  >Add MCQ Test</a
                 >
               </li>
               <li>
@@ -54,7 +38,7 @@
             </ul>
           </li>
           <li>
-            <a class="gn-icon gn-icon-download">Manage Contests</a>
+            <div class="gn-icon gn-icon-download">Manage Contests</div>
             <ul class="gn-submenu">
               <li>
                 <a
@@ -87,7 +71,7 @@
             </ul>
           </li>
           <li>
-            <a class="gn-icon gn-icon-download">Multiset Contests</a>
+            <div class="gn-icon gn-icon-download">Multiset Contests</div>
             <ul class="gn-submenu">
               <li>
                 <a
@@ -106,7 +90,7 @@
             </ul>
           </li>
           <li>
-            <a class="gn-icon gn-icon-download">Manage Questions</a>
+            <div class="gn-icon gn-icon-download">Manage Questions</div>
             <ul class="gn-submenu">
               <li>
                 <a
@@ -140,7 +124,7 @@
             </ul>
           </li>
           <li>
-            <a class="gn-icon gn-icon-download">Manage Tutorials</a>
+            <div class="gn-icon gn-icon-download">Manage Tutorials</div>
             <ul class="gn-submenu">
               <li>
                 <a
@@ -163,6 +147,7 @@
               </li>
             </ul>
           </li>
+          <!--
           <li>
             <a class="gn-icon gn-icon-download">Manage Resumes</a>
             <ul class="gn-submenu">
@@ -175,6 +160,7 @@
               </li>
             </ul>
           </li>
+          
           <li>
             <a class="gn-icon gn-icon-download">Manage Practice</a>
             <ul class="gn-submenu">
@@ -198,7 +184,7 @@
                 >
               </li>
             </ul>
-          </li>
+          </li>-->
           <li>
             <a
               class="gn-icon gn-icon-cog"
@@ -238,7 +224,9 @@
             >
           </li>
           <li>
-            <a class="gn-icon gn-icon-help" href="<%= data.url %>/admin/qualResults"
+            <a
+              class="gn-icon gn-icon-help"
+              href="<%= data.url %>/admin/qualResults"
               >Qualifier Results</a
             >
           </li>
@@ -254,9 +242,9 @@
       <!-- /gn-scroller -->
     </nav>
   </li>
-  <li><a href="<%= data.url %>">Home</a></li>
+  <li><a href="<%= data.url %>" class="pop">Home</a></li>
   <li>
-    <a class="codrops-icon codrops-icon-prev" href="<%= data.url %>/logout"
+    <a class="codrops-icon codrops-icon-prev pop" href="<%= data.url %>/logout"
       ><span>Logout</span></a
     >
   </li>

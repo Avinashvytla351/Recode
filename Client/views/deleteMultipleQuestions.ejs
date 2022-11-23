@@ -95,18 +95,6 @@
             -webkit-text-size-adjust: 100%;
         }
 
-        body {
-            background: #41228e;
-            overflow-x: auto;
-        }
-
-        body {
-            line-height: 1.2;
-            font-family: "Roboto", sans-serif;
-            -webkit-font-smoothing: antialiased;
-            font-size: 15px;
-            color: #4c4c4c;
-        }
 
         .page-title {
             padding-top: 0;
@@ -161,7 +149,7 @@
 
 <body>
     <div class="container">
-        <% include ../views/partials/adminpanel %>
+        <%- include('../views/partials/adminpanel') %>
             <section class="section py-5 bg-white" style="padding-top: 10rem; border-style: hidden">
                 <form class="align-items-center" action="/admin/deletequestions/multiple" name="DelQuesForm"
                     id="delquesform" method="POST" style="width: 74%; margin-left: 13%">
@@ -171,14 +159,7 @@
                         required />
                     <textarea type="hidden" name="token" id="token" value="<%= token %>"
                         style="display: none"></textarea>
-                    <button style="
-                margin-top: 2rem;
-                background: rgb(90, 56, 177);
-                color: white;
-                padding: 8px 20px;
-                font-size: larger;
-                box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
-                " class="btn btn-light" action="submit" id="sub">
+                    <button class="submit" action="submit" id="sub">
                         Submit
                     </button>
                 </form>
@@ -189,6 +170,7 @@
                 new gnMenu(document.getElementById('gn-menu'));
                 document.getElementById("token").value = "<%= token %>";
             </script>
+            <%- include('../views/partials/footer') %>
 </body>
 
 </html>

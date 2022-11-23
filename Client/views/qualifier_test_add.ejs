@@ -21,10 +21,10 @@
   </head>
   <body>
     <div class="container">
-      <% include ../views/partials/adminpanel %>
+      <%- include('../views/partials/adminpanel') %>
       <header>
         <h1>
-          Manage Qualifier Test<span style="color: white"
+          Manage Qualifier Test<span style="color: black"
             >Add Qualifier Test</span
           >
         </h1>
@@ -36,50 +36,88 @@
           onsubmit="return handleSubmit()"
           method="POST"
         >
-          <h4>Exam ID</h4>
-          <textarea name="contestId" rows="5" required></textarea>
-          <p class="comments">Exam Name</p>
-          <textarea name="contestName" rows="5" required></textarea>
-          <p class="comments">Exam Date</p>
-          <input name="contestDate" type="date" required />
-          <p class="comments">Exam Duration</p>
-          <textarea
-            placeholder="in minutes"
-            name="contestDuration"
-            rows="5"
-            required
-          ></textarea>
-          <p class="comments">Exam Start Time</p>
-          <textarea
-            placeholder="24 Hours HHMM format"
-            name="contestStartTime"
-            rows="5"
-            required
-          ></textarea>
-          <p class="comments">Exam End Time</p>
-          <textarea
-            placeholder="24 Hours HHMM format"
-            name="contestEndTime"
-            rows="5"
-            required
-          ></textarea>
-          <p class="comments">Exam Sections</p>
-          <textarea
-            required
-            name="contestSections"
-            rows="5"
-            placeholder="Enter Section Names Separated By Comma -
+          <span class="allInputs">
+            <span class="inputf">
+              <p class="comments">Exam ID</p>
+              <input
+                class="small"
+                name="contestId"
+                rows="5"
+                required
+                placeholder="ID"
+              />
+            </span>
+            <span class="inputf">
+              <p class="comments">Exam Name</p>
+              <input
+                class="small"
+                name="contestName"
+                rows="5"
+                required
+                placeholder="Name"
+              />
+            </span>
+          </span>
+          <span class="allInputs">
+            <span class="inputf">
+              <p class="comments">Exam Date</p>
+              <input class="vsmall" name="contestDate" type="date" required />
+            </span>
+            <span class="inputf">
+              <p class="comments">Exam Duration</p>
+              <input
+                class="vsmall"
+                placeholder="in minutes"
+                name="contestDuration"
+                rows="5"
+                required
+              />
+            </span>
+            <span class="inputf">
+              <p class="comments">Exam Start Time</p>
+              <input
+                class="vsmall"
+                placeholder="24 Hours HHMM format"
+                name="contestStartTime"
+                rows="5"
+                required
+              />
+            </span>
+            <span class="inputf">
+              <p class="comments">Exam End Time</p>
+              <input
+                class="vsmall"
+                placeholder="24 Hours HHMM format"
+                name="contestEndTime"
+                rows="5"
+                required
+              />
+            </span>
+          </span>
+          <span class="allInputs">
+            <span class="inputf">
+              <p class="comments">Exam Sections</p>
+              <input
+                class="big"
+                required
+                name="contestSections"
+                rows="5"
+                placeholder="Enter Section Names Separated By Comma -
 
 Eg : Numeral, Reasoning, Verbal, Programming"
-            required
-          ></textarea>
-          <label for="coding">Coding</label>
-          <input
-            type="checkbox"
-            name="coding"
-            id="coding"
-            style="width: fit-content; margin: 20px 0"
-          />
+                required
+              />
+            </span>
+          </span>
+          <span class="inputf">
+            <label for="coding">Coding Required?</label>
+            <input
+              type="checkbox"
+              name="coding"
+              id="coding"
+              style="width: fit-content; margin: 20px 0"
+            />
+          </span>
           <input type="hidden" name="mcq" value="true" id="mcq" />
           <br />
           <hr />
@@ -117,5 +155,6 @@ Eg : Numeral, Reasoning, Verbal, Programming"
     <script>
       document.getElementById("token").value = "<%= token %>";
     </script>
+    <%- include('../views/partials/footer') %>
   </body>
 </html>
