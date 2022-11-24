@@ -474,7 +474,7 @@ exports.createTutorialsExcel = (req, res) => {
                 editorial: isTopicBased ? "" : data[i].editorial,
                 language: isTopicBased ? "" : data[i].language,
                 conceptLevel: isTopicBased ? "" : data[i].sublevel,
-                courseId: ["IARE_PY", "IARE_C", "IARE_CPP", "IARE_JAVA"],
+                courseId: "PRACTICE",
               });
               // Save Question in the database
               question.save();

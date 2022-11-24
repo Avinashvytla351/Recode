@@ -2547,7 +2547,10 @@ app.get(
         } else if (req.params.courseId === "IARE_CPP") {
           body.courseName = "C++ Proficiency";
           body.courseId = "IARE_CPP";
-        } else {
+        } else if (req.params.courseId === "PRACTICE") {
+          body.courseName = "Practice Section";
+          body.courseId = "PRACTICE";
+        }  else {
           body.courseName = "Invalid Course";
         }
         res.render("tutProgress", {
@@ -2620,22 +2623,28 @@ app.get(
         } else if (req.params.courseId === "IARE_CPP") {
           body.courseName = "C++ Proficiency";
           body.courseId = "IARE_CPP";
+        } else if (req.params.courseId === "PRACTICE") {
+          body.courseName = "Practice Section";
+          body.courseId = "PRACTICE";
         } else {
           body.courseName = "Invalid Course";
         }
         // Course level
-        if (req.params.concept === "bs") {
-          body.courseName = body.courseName + " - Basics";
-        } else if (req.params.concept === "cs") {
-          body.courseName = body.courseName + " - Control Structures";
-        } else if (req.params.concept === "al") {
-          body.courseName = body.courseName + " - Arrays/Lists/Strings";
-        } else if (req.params.concept === "po") {
-          body.courseName = body.courseName + " - Pointers/Objects";
-        } else if (req.params.concept === "so") {
-          body.courseName = body.courseName + " - Structures/Objects";
-        } else if (req.params.concept === "fn") {
-          body.courseName = body.courseName + " - Functions";
+        if(body.courseId !== "PRACTICE"){
+          console.log(body.courseId)
+          if (req.params.concept === "bs") {
+            body.courseName = body.courseName + " - Basics";
+          } else if (req.params.concept === "cs") {
+            body.courseName = body.courseName + " - Control Structures";
+          } else if (req.params.concept === "al") {
+            body.courseName = body.courseName + " - Arrays/Lists/Strings";
+          } else if (req.params.concept === "po") {
+            body.courseName = body.courseName + " - Pointers/Objects";
+          } else if (req.params.concept === "so") {
+            body.courseName = body.courseName + " - Structures/Objects";
+          } else if (req.params.concept === "fn") {
+            body.courseName = body.courseName + " - Functions";
+          }
         }
         res.render("displayTutQuestions", {
           imgUsername: req.cookies.username,
@@ -2655,6 +2664,7 @@ app.get(
     let ifTopicsOrCompanies =
       req.params.difficulty === "Topics" ||
       req.params.difficulty === "Companies";
+    let isAllQues = req.params.difficulty === "AllQuestions";
 
     let param = ifTopicsOrCompanies
       ? "topics"
@@ -2679,7 +2689,7 @@ app.get(
 
     request(options, function (err, response, body) {
       if (ifTopicsOrCompanies) {
-        let courseIds = ["IARE_PY", "IARE_C", "IARE_JAVA", "IARE_CPP"];
+        let courseIds = ["IARE_PY", "IARE_C", "IARE_JAVA", "IARE_CPP", "PRACTICE"];
         let isCourseValid = courseIds.includes(req.params.courseId);
         let ifTopics = difficulty === "Topics";
 
@@ -2690,12 +2700,31 @@ app.get(
             : "Select a company"
           : "Invalid Course";
 
+        
+
         res.render("practiceTutList", {
           imgUsername: req.cookies.username,
           title: difficulty,
           data: body,
         });
-      } else {
+      } else if(isAllQues) {
+        let options = {
+          url: serverRoute + "/questions",
+          method: "get",
+          headers: {
+            authorization: req.cookies.token,
+          },
+          json: true,
+        };
+        request(options, function (err, response, body) {
+          body.courseName = "All Questions"
+          res.render("displayTutQuestions", {
+            imgUsername: req.cookies.username,
+            title: difficulty,
+            data: body,
+          });
+        });
+      }else {
         let options3 = {
           url: serverRoute + "/tparticipations/" + req.params.courseId,
           method: "get",
@@ -2732,6 +2761,9 @@ app.get(
           } else if (req.params.courseId === "IARE_CPP") {
             body.courseName = "C++ Proficiency";
             body.courseId = "IARE_CPP";
+          } else if (req.params.courseId === "PRACTICE") {
+            body.courseName = "Practice Section";
+            body.courseId = "PRACTICE";
           } else {
             body.courseName = "Invalid Course";
           }
@@ -2799,14 +2831,26 @@ app.get("/tutorials/:courseId", checkSignIn, async (req, res, next) => {
         } else if (req.params.courseId === "IARE_CPP") {
           body.courseName = "C++ Proficiency";
           body.courseId = "IARE_CPP";
+        } else if (req.params.courseId === "PRACTICE") {
+          body.courseName = "Practice Section";
+          body.courseId = "PRACTICE";
         } else {
           body.courseName = "Invalid Course";
         }
-        res.render("questionsTut", {
-          imgUsername: req.cookies.username,
-          data: body,
-          datatimer: bodytimer,
-        });
+        if(body.courseId === "PRACTICE"){
+          res.render("questionsTutPractice", {
+            imgUsername: req.cookies.username,
+            data: body,
+            datatimer: bodytimer,
+          });
+        }
+        else{
+          res.render("questionsTut", {
+            imgUsername: req.cookies.username,
+            data: body,
+            datatimer: bodytimer,
+          });
+        }
       });
     });
   });
