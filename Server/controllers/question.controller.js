@@ -19,15 +19,18 @@ exports.create = (req, res) => {
     .then((questions) => {
       var currQuestions = questions[0].CountValue + 1;
       req.body.questionId = "IARE" + currQuestions.toString();
-      Question.findOneAndUpdate({questionId:questions[0].questionId},{$set:{CountValue:currQuestions}})
-      .then()
-      .catch((err) => {
-        res.status(500).send({
-          success: false,
-          message:
-            err.message || "Some error occurred while retrieving questions.",
+      Question.findOneAndUpdate(
+        { questionId: questions[0].questionId },
+        { $set: { CountValue: currQuestions } }
+      )
+        .then()
+        .catch((err) => {
+          res.status(500).send({
+            success: false,
+            message:
+              err.message || "Some error occurred while retrieving questions.",
+          });
         });
-      })
       // Create a Question
       const question = new Question({
         questionId: req.body.questionId,
@@ -60,7 +63,10 @@ exports.create = (req, res) => {
       question
         .save()
         .then((data) => {
-          res.send(data);
+          res.send({
+            success: true,
+            message: "Question Created Successfully ",
+          });
         })
         .catch((err) => {
           res.status(500).send({
@@ -128,7 +134,10 @@ exports.createExcel = (req, res) => {
               // Save Question in the database
               question.save();
             }
-            res.send("Done! Uploaded files");
+            res.send({
+              success: true,
+              message: "Done! Uploaded files",
+            });
           })
           .catch((err) => {
             res.status(500).send({
@@ -141,7 +150,10 @@ exports.createExcel = (req, res) => {
       }
     });
   } else {
-    res.send("No File selected !");
+    res.send({
+      success: false,
+      message: "No File selected !",
+    });
     res.end();
   }
 };
@@ -219,7 +231,10 @@ exports.createSet = (req, res) => {
               });
             });
 
-            res.send("Done! Uploaded files");
+            res.send({
+              success: true,
+              message: "Done! Uploaded files",
+            });
           })
           .catch((err) => {
             res.status(500).send({
@@ -232,7 +247,10 @@ exports.createSet = (req, res) => {
       }
     });
   } else {
-    res.send("No File selected !");
+    res.send({
+      success: false,
+      message: "No File selected !",
+    });
     res.end();
   }
 };
@@ -257,22 +275,22 @@ exports.addSetGivenQIdArray = (req, res) => {
       Question.updateMany(
         { questionId: { $in: questionIds } },
         {
-          $set:{
-            contestId : req.body.contestId
-          }
+          $set: {
+            contestId: req.body.contestId,
+          },
         }
-        )
-      .then((questions) => {
-        let set = question.map((e) => e.questionId);
-        updateSet(set);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          success: false,
-          message:
-            err.message || "Some error occurred while retrieving questions.",
+      )
+        .then((questions) => {
+          let set = question.map((e) => e.questionId);
+          updateSet(set);
+        })
+        .catch((err) => {
+          res.status(500).send({
+            success: false,
+            message:
+              err.message || "Some error occurred while retrieving questions.",
+          });
         });
-      })
     })
     .catch((err) => {
       res.status(500).send({
@@ -295,7 +313,10 @@ exports.addSetGivenQIdArray = (req, res) => {
         if (err) {
           res.send({ success: false, message: "Error occured" });
         }
-        res.send("Done! Added to Set");
+        res.send({
+          success: true,
+          message: "Done! Added to Set",
+        });
       });
     });
   };
@@ -366,7 +387,10 @@ exports.createTutorials = (req, res) => {
       question
         .save()
         .then((data) => {
-          res.send(data);
+          res.send({
+            success: true,
+            message: "Question created successfully",
+          });
         })
         .catch((err) => {
           res.status(500).send({
@@ -422,7 +446,9 @@ exports.createTutorialsExcel = (req, res) => {
               }
 
               question = new Question({
-                questionId: data[i].contentDevId? data[i].contentDevId: ("IARE" + (currQuestions + (i + 1)).toString()),
+                questionId: data[i].contentDevId
+                  ? data[i].contentDevId
+                  : "IARE" + (currQuestions + (i + 1)).toString(),
                 questionName: data[i].questionName,
                 contestId: data[i].contestId,
                 questionDescriptionText: data[i].questionDescriptionText,
@@ -453,7 +479,10 @@ exports.createTutorialsExcel = (req, res) => {
               // Save Question in the database
               question.save();
             }
-            res.send("Done! Uploaded files");
+            res.send({
+              success: true,
+              message: "Done! Uploaded files",
+            });
           })
           .catch((err) => {
             res.status(500).send({
@@ -466,7 +495,10 @@ exports.createTutorialsExcel = (req, res) => {
       }
     });
   } else {
-    res.send("No File selected !");
+    res.send({
+      success: false,
+      message: "No File selected !",
+    });
     res.end();
   }
 };
@@ -604,7 +636,7 @@ exports.update = (req, res) => {
   ];
   qid = qid.slice(0, 3);
   userSlice = username.slice(7);
-  userSlice = userSlice.toUpperCase()
+  userSlice = userSlice.toUpperCase();
   if (req.decoded.admin) {
     qid = "admin";
     username = "admin";
@@ -701,10 +733,10 @@ exports.delete = (req, res) => {
 // Delete questions with the specified questionIds in the request
 exports.deleteMultiple = (req, res) => {
   questionIds = req.params.questionIds
-  .split(",")
-  .filter((item) => !item.includes("-"))
-  .map((item) => item.trim());
-  Question.deleteMany({ questionId: {$in: questionIds }})
+    .split(",")
+    .filter((item) => !item.includes("-"))
+    .map((item) => item.trim());
+  Question.deleteMany({ questionId: { $in: questionIds } })
     .then((question) => {
       if (!question) {
         return res.status(404).send({
@@ -758,7 +790,10 @@ exports.findAllContest = async (req, res) => {
           questionIds,
           async (err, participation) => {
             if (err) {
-              return res.send({ success: false, message: err || "Error occured" });
+              return res.send({
+                success: false,
+                message: err || "Error occured",
+              });
             }
             let result = await findSet(questionIds);
             return result;
@@ -876,7 +911,7 @@ exports.findAllCourseDifficulty = (req, res) => {
 };
 
 exports.findAllCourseTopicWise = (req, res) => {
-  let param = req.params.title === "Topics" ? "topic": "company";
+  let param = req.params.title === "Topics" ? "topic" : "company";
   Question.find({
     courseId: req.params.courseId,
     [param]: req.params.name,

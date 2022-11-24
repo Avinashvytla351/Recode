@@ -184,12 +184,6 @@ send
   </div>
   </span>
 </section>
-
-<div class="counters">
-  <p class="counter" id="total"><span>Total Views</span> <%=totalCount%></p>
-  <p class="counter" id="weekly"><span>Daily Views</span><%= dayCount%></p>
-  <p class="counter" id="counter"><span>Weekly Views</span><%= weeklyCount%></p>
-</div>
 <%- include('../views/partials/footer') %>
 
 <!-- jQuery -->
@@ -202,43 +196,6 @@ send
 <script src="plugins/shuffle/shuffle.min.js"></script>
 
 <!-- Main Script -->
-<form method="POST" autocomplete="off" name="google-sheet" style="display: none;">
-  <input type="text" name="date" id="date">
-  <input type="text" name="month" id="month">
-  <input type="text" name="time" id="time">
-  <input type="text" name="username" id="username">
-  <input type="text" id="ip" name="ip" style="display: none" />
-</form>
-<script>
-  const googleSheetsApi = "<%= googleSheetsApi %>"
-  var formdate=document.getElementById("date")
-  var formmonth=document.getElementById("month")
-  var formtime=document.getElementById("time")
-  var formuser=document.getElementById("username")
-  var dateObj = new Date();
-  var month = dateObj.getMonth() + 1; //months from 1-12
-  var day = dateObj.getDate();
-  var year = dateObj.getFullYear();
-  var time=dateObj.getHours()+":"+dateObj.getMinutes()+":"+dateObj.getSeconds()
-  newdate = year + "/" + month + "/" + day;
-  formdate.value=newdate
-  formmonth.value=month+"/"+dateObj.getFullYear()
-  formtime.value=time
-  formuser.value="<%=imgUsername%>"
-  const countEl = document.getElementById("counter");
-  fetch("https://api.ipify.org/?format=json")
-.then(results=>results.json())
-.then(data=>{
-  document.getElementById("ip").value=data.ip
-  const scriptURL ="https://script.google.com/macros/s/"+googleSheetsApi;
-  const form = document.forms["google-sheet"];
-  fetch(scriptURL, { method: "POST", body: new FormData(form) })
-    .then()
-    .catch((error) => console.error("Error!", error.message));
-})
-
-</script>
-
 <script src="js/script.js"></script>
 
 </body>

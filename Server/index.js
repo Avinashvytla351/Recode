@@ -12,7 +12,6 @@ const fs = require("fs");
 const requestIp = require("request-ip");
 const dotenv = require("dotenv");
 const schedule = require("node-schedule");
-const Count = require("./models/count.model.js");
 const SkillUp = require("./controllers/skillUp.controller.js");
 dotenv.config({ path: "../Server/util/config.env" });
 
@@ -45,7 +44,8 @@ app.use(
     extended: true,
   })
 );
-
+app.set("view engine", "ejs");
+app.use("/Public", express.static(__dirname + "/Public"));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
@@ -93,8 +93,6 @@ const participationsTut = require("./controllers/participationTut.controller.js"
 const courses = require("./controllers/course.controller.js");
 const skills = require("./controllers/skill.controller.js");
 const mcqs = require("./controllers/mcq.controller.js");
-const codechefEvents = require("../Server/controllers/codechefEvents.controller.js");
-const counters = require("../Server/controllers/counters.controller.js");
 const resume = require("../Server/controllers/resume.controller.js");
 const facultyResume = require("../Server/controllers/facultyResume.controller.js");
 const skillUp = require("../Server/controllers/skillUp.controller.js");
@@ -121,10 +119,6 @@ require("./routes/complain.route.js")(app);
 require("./routes/skill.route.js")(app);
 // Require mcq routes
 require("./routes/mcq.route.js")(app);
-// Require events routes
-require("./routes/codechefEvents.route.js")(app);
-// Require counters routes
-require("./routes/counters.route.js")(app);
 // Require resume routes
 require("./routes/resume.route.js")(app);
 // Require facultyResume routes
@@ -1133,28 +1127,10 @@ app.get("/plagreport/:languageId/:questionId", async (req, res) => {
     .catch(res.send("Failed"));
 });
 
-schedule.scheduleJob("59 23 * * *", async function () {
-  await Count.findOneAndUpdate(
-    {},
-    {
-      $set: {
-        day: 0,
-      },
-    }
-  );
+app.get("*", async (req, res) => {
+  let data = req.body;
+  res.render("serverMessage", data);
 });
-
-schedule.scheduleJob("59 23 * * 0", async function () {
-  await Count.findOneAndUpdate(
-    {},
-    {
-      $set: {
-        week: 0,
-      },
-    }
-  );
-});
-
 schedule.scheduleJob("59 23 * * 0", async function () {
   await SkillUp.findAll(async (err, skillUps) => {
     skillUps.forEach(async (skillUp) => {

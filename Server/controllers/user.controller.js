@@ -1,5 +1,4 @@
 const User = require("../models/user.model.js");
-const Count = require("../models/count.model.js");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const handlebars = require("handlebars");
@@ -619,16 +618,6 @@ exports.checkPass = (req, res) => {
       if (user[0].password === req.body.password) {
         if (user[0].isVerified === true) {
           // Login successful
-          let currDate = user[0].countDate;
-          let date = new Date();
-          let tdate = date.getDate() + ":" + date.getMonth();
-          if (currDate != tdate) {
-            await Count.updateOne({}, { $inc: { day: 1, week: 1, total: 1 } });
-            await User.findOneAndUpdate(
-              { username: req.body.username },
-              { $set: { countDate: tdate } }
-            );
-          }
           let token = jwt.sign(
             {
               username: user[0].username,
@@ -682,7 +671,7 @@ exports.checkPass = (req, res) => {
       }
       return res.status(404).send({
         success: false,
-        message: "Error retrieving user with id " + req.body.username,
+        message: "Error retrieving user with id hello " + req.body.username,
       });
     });
 };
@@ -921,28 +910,29 @@ exports.updatePassword = (req, res) => {
   }
 };
 
-exports.createUsers = (req,res) => {
-  let usernames = req.body.usernames.split(" ")
-  .filter((item) => !item.includes("-"))
-  .map((item) => item.trim());
-      // Create a user
-      for(var i=0;i<usernames.length;i++){
-        console.log(usernames[i]);
-        let token =
-        Math.random().toString(36).substring(2, 15) +
-        Math.random().toString(36).substring(2, 15);
-        const user = new User({
-          username: usernames[i],
-          name: "Lexicon_Participant",
-          password: "LEXI_PASSWORD",
-          email: usernames[i]+"LEXI@iare.ac.in",
-          branch: "LEXI",
-          verifyToken: token,
-          isVerified: true,
-        });
-  
-      // Save user in the database
-      user.save()
+exports.createUsers = (req, res) => {
+  let usernames = req.body.usernames
+    .split(" ")
+    .filter((item) => !item.includes("-"))
+    .map((item) => item.trim());
+  // Create a user
+  for (var i = 0; i < usernames.length; i++) {
+    console.log(usernames[i]);
+    let token =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
+    const user = new User({
+      username: usernames[i],
+      name: "Lexicon_Participant",
+      password: "LEXI_PASSWORD",
+      email: usernames[i] + "LEXI@iare.ac.in",
+      branch: "LEXI",
+      verifyToken: token,
+      isVerified: true,
+    });
+
+    // Save user in the database
+    user.save();
   }
   res.status(200).send("success");
-}
+};
