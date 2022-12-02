@@ -55,8 +55,6 @@ exports.create = (req, res) => {
         author: req.body.author,
         editorial: req.body.editorial,
         difficulty: req.body.difficulty,
-        language: req.body.language,
-        conceptLevel: req.body.conceptLevel,
       });
 
       // Save Question in the database
@@ -105,7 +103,7 @@ exports.createExcel = (req, res) => {
             let currQuestions = questions.length;
             for (let i = 0; i < data.length; i++) {
               question = new Question({
-                questionId: "IARE" + (currQuestions + (i + 1)).toString(),
+                questionId: "BUILDIT" + (currQuestions + (i + 1)).toString(),
                 questionName: data[i].questionName,
                 contestId: data[i].contestId,
                 questionDescriptionText: data[i].questionDescriptionText,
@@ -127,8 +125,6 @@ exports.createExcel = (req, res) => {
                 author: data[i].author,
                 editorial: data[i].editorial,
                 difficulty: data[i].level,
-                language: data[i].language,
-                conceptLevel: data[i].sublevel,
               });
 
               // Save Question in the database
@@ -178,7 +174,7 @@ exports.createSet = (req, res) => {
             let currQuestions = questions.length;
             for (let i = 0; i < data.length; i++) {
               question = new Question({
-                questionId: "IARE" + (currQuestions + (i + 1)).toString(),
+                questionId: "BUILDIT" + (currQuestions + (i + 1)).toString(),
                 questionName: data[i].questionName,
                 contestId: req.params.contestId,
                 questionDescriptionText: data[i].questionDescriptionText,
@@ -200,8 +196,6 @@ exports.createSet = (req, res) => {
                 author: data[i].author,
                 editorial: data[i].editorial,
                 difficulty: data[i].level,
-                language: data[i].language,
-                conceptLevel: data[i].sublevel,
               });
 
               // Save Question in the database
@@ -333,24 +327,36 @@ exports.createTutorials = (req, res) => {
 
   Question.find()
     .then((questions) => {
-      let isTopicBased = req.body.company || req.body.topic ? true : false;
       let companies = [];
       let topics = [];
-      if (req.body.company) {
-        companies = req.body.company
+      if (req.body.companies) {
+        companies = req.body.companies
           .split(",")
           .filter((item) => !item.includes("-"))
           .map((item) => item.trim());
       }
-      if (req.body.topic) {
-        topics = req.body.topic
+      if (req.body.topics) {
+        topics = req.body.topics
           .split(",")
           .filter((item) => !item.includes("-"))
           .map((item) => item.trim());
       }
 
-      let currQuestions = questions.length + 1;
+      var currQuestions = questions[0].CountValue + 1;
       req.body.questionId = "IARE" + currQuestions.toString();
+      Question.findOneAndUpdate(
+        { questionId: questions[0].questionId },
+        { $set: { CountValue: currQuestions } }
+      )
+        .then()
+        .catch((err) => {
+          res.status(500).send({
+            success: false,
+            message:
+              err.message || "Some error occurred while retrieving questions.",
+          });
+        });
+      req.body.questionId = "BUILDIT" + currQuestions.toString();
 
       // Create a Question
       const question = new Question({
@@ -375,12 +381,10 @@ exports.createTutorials = (req, res) => {
         questionExplanation: req.body.questionExplanation,
         company: companies,
         topic: topics,
-        difficulty: isTopicBased ? "topics" : req.body.level,
-        author: isTopicBased ? "" : req.body.author,
-        editorial: isTopicBased ? "" : req.body.editorial,
-        language: isTopicBased ? "" : req.body.language,
-        conceptLevel: isTopicBased ? "" : req.body.sublevel,
-        courseId: ["IARE_PY", "IARE_C", "IARE_CPP", "IARE_JAVA"],
+        difficulty: req.body.difficulty,
+        author: req.body.author,
+        editorial: req.body.editorial,
+        courseId: "practice",
       });
 
       // Save Question in the database
@@ -446,9 +450,7 @@ exports.createTutorialsExcel = (req, res) => {
               }
 
               question = new Question({
-                questionId: data[i].contentDevId
-                  ? data[i].contentDevId
-                  : "IARE" + (currQuestions + (i + 1)).toString(),
+                questionId: "BUILDIT" + (currQuestions + (i + 1)).toString(),
                 questionName: data[i].questionName,
                 contestId: data[i].contestId,
                 questionDescriptionText: data[i].questionDescriptionText,
@@ -469,12 +471,10 @@ exports.createTutorialsExcel = (req, res) => {
                 questionExplanation: data[i].questionExplanation,
                 company: companies,
                 topic: topics,
-                difficulty: isTopicBased ? "topics" : data[i].level,
-                author: isTopicBased ? "" : data[i].author,
-                editorial: isTopicBased ? "" : data[i].editorial,
-                language: isTopicBased ? "" : data[i].language,
-                conceptLevel: isTopicBased ? "" : data[i].sublevel,
-                courseId: "PRACTICE",
+                difficulty: data[i].level,
+                author: data[i].author,
+                editorial: data[i].editorial,
+                courseId: "practice",
               });
               // Save Question in the database
               question.save();
@@ -594,7 +594,6 @@ exports.getTestCases = (req, callback) => {
         difficulty: question.difficulty,
         language: question.language,
         courseId: question.courseId,
-        conceptLevel: question.conceptLevel,
       };
       return callback(null, testcases);
     })
@@ -617,23 +616,7 @@ exports.update = (req, res) => {
 
   let username = req.decoded.username;
   let qid = req.body.questionId;
-  let userArr = [
-    "admin",
-    "19951a0579",
-    "19951a12b5",
-    "19951a05m7",
-    "19951a1268",
-    "19951a1273",
-    "18951a05a3",
-    "18951a1228",
-    "18951a04h3",
-    "18951a0478",
-    "18951a0432",
-    "18951a1232",
-    "18951a0571",
-    "19951a0545",
-    "19951a05k5",
-  ];
+  let userArr = ["admin"];
   qid = qid.slice(0, 3);
   userSlice = username.slice(7);
   userSlice = userSlice.toUpperCase();
@@ -675,8 +658,6 @@ exports.update = (req, res) => {
         author: req.body.author,
         editorial: req.body.editorial,
         difficulty: req.body.difficulty,
-        language: req.body.language,
-        conceptLevel: req.body.conceptLevel,
       },
     },
     { new: true }
@@ -857,158 +838,44 @@ exports.findAllContest = async (req, res) => {
   };
 };
 
-exports.findAllCourse = (req, res) => {
-  Question.find({ courseId: req.params.courseId })
-    .then((question) => {
-      if (!question) {
-        return res.status(404).send({
-          success: false,
-          message: "Question not found with id " + req.params.questionId,
-        });
-      }
-      res.send(question);
+exports.findPracticeNames = async (req, res) => {
+  Question.find({ courseId: "practice" })
+    .then((questions) => {
+      res.send({
+        success: true,
+        data: questions,
+      });
     })
     .catch((err) => {
-      if (err.kind === "ObjectId") {
-        return res.status(404).send({
-          success: false,
-          message: "Question not found with id " + req.params.questionId,
-        });
-      }
-      return res.status(500).send({
+      res.send({
         success: false,
-        message: "Error retrieving question with id " + req.params.questionId,
+        message: "Failed to retrive questions",
       });
     });
 };
 
-exports.findAllCourseDifficulty = (req, res) => {
-  Question.find({
-    courseId: req.params.courseId,
-    difficulty: req.params.difficulty,
-  })
-    .then((question) => {
-      if (!question) {
-        return res.status(404).send({
+exports.findPracticeByTitle = async (req, res) => {
+  if (req.params.division == "Topics") {
+    Question.find({ topic: req.params.title })
+      .then((questions) => {
+        res.send({ success: true, data: questions });
+      })
+      .catch((err) => {
+        res.send({
           success: false,
-          message: "Question not found with id " + req.params.questionId,
+          message: "Failed to retrive questions",
         });
-      }
-      res.send(question);
-    })
-    .catch((err) => {
-      if (err.kind === "ObjectId") {
-        return res.status(404).send({
-          success: false,
-          message: "Question not found with id " + req.params.questionId,
-        });
-      }
-      return res.status(500).send({
-        success: false,
-        message: "Error retrieving question with id " + req.params.questionId,
       });
-    });
-};
-
-exports.findAllCourseTopicWise = (req, res) => {
-  let param = req.params.title === "Topics" ? "topic" : "company";
-  Question.find({
-    courseId: req.params.courseId,
-    [param]: req.params.name,
-  })
-    .then((question) => {
-      if (!question) {
-        return res.status(404).send({
+  } else {
+    Question.find({ company: req.params.title })
+      .then((questions) => {
+        res.send({ success: true, data: questions });
+      })
+      .catch((err) => {
+        res.send({
           success: false,
-          message: "Question not found with id " + req.params.questionId,
+          message: "Failed to retrive questions",
         });
-      }
-      res.send(question);
-    })
-    .catch((err) => {
-      if (err.kind === "ObjectId") {
-        return res.status(404).send({
-          success: false,
-          message: "Question not found with id " + req.params.questionId,
-        });
-      }
-      return res.status(500).send({
-        success: false,
-        message: "Error retrieving question with id " + req.params.questionId,
       });
-    });
-};
-
-exports.findAllCourseConceptWise = (req, res) => {
-  Question.find({
-    courseId: req.params.courseId,
-    difficulty: req.params.difficulty,
-    conceptLevel: req.params.conceptLevel,
-  })
-    .then((question) => {
-      if (!question) {
-        return res.status(404).send({
-          success: false,
-          message: "Question not found with id " + req.params.questionId,
-        });
-      }
-      res.send(question);
-    })
-    .catch((err) => {
-      if (err.kind === "ObjectId") {
-        return res.status(404).send({
-          success: false,
-          message: "Question not found with id " + req.params.questionId,
-        });
-      }
-      return res.status(500).send({
-        success: false,
-        message: "Error retrieving question with id " + req.params.questionId,
-      });
-    });
-};
-
-exports.getAllQuestions = (req, callback) => {
-  Question.find({ contestId: req.cookies.contestId })
-    .then((question) => {
-      if (!question) {
-        return callback("Questions not found ", null);
-      }
-      return callback(null, question);
-    })
-    .catch((err) => {
-      if (err.kind === "ObjectId") {
-        return callback("Questions not found ", null);
-      }
-      return callback("Error retrieving questions", null);
-    });
-};
-
-exports.merge = (req, res) => {
-  Question.find({ questionId: req.body.questionId })
-    .then((question) => {
-      if (!question) {
-        return res.status(404).send({
-          success: false,
-          message: "Question not found with id " + req.body.questionId,
-        });
-      }
-      question = question[0];
-      question.courseId = ["IARE_PY", "IARE_C", "IARE_CPP", "IARE_JAVA"];
-      question.difficulty = "contest";
-      question.save();
-      res.send(question);
-    })
-    .catch((err) => {
-      if (err.kind === "ObjectId") {
-        return res.status(404).send({
-          success: false,
-          message: "Question not found with id " + req.body.questionId,
-        });
-      }
-      return res.status(500).send({
-        success: false,
-        message: "Error retrieving question with id " + req.body.questionId,
-      });
-    });
+  }
 };

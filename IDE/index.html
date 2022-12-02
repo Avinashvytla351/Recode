@@ -14,7 +14,6 @@
     <script src="offline/goldenlayout.min.js"></script>
     <link rel="stylesheet" href="offline/goldenlayout-base.css" />
     <link rel="stylesheet" href="offline/goldenlayout-dark-theme.css" />
-
     <script
       type="text/javascript"
       src="third_party/monaco-editor-0.18.0/min/vs/loader.js"
@@ -37,7 +36,10 @@
     <script type="text/javascript" src="js/ide.js"></script>
 
     <link type="text/css" rel="stylesheet" href="css/ide.css" />
-
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet"
+    />
     <title>BuildIT IDE</title>
     <style>
       html {
@@ -61,81 +63,90 @@
   </head>
 
   <body>
-    <div
-      id="site-navigation"
-      class="ui inverted menu"
-      style="border-top: 2px solid purple; border-bottom: 2px solid purple"
-    >
-      <div id="site-header" class="header item">
-        <a href="/">
-          <h2>BuildIT</h2>
-          <sup> By Go-Labs</sup>
-        </a>
+    <div id="site-navigation" class="ui inverted menu">
+      <div id="site-header" class="header item" style="color: black">
+        <h2 style="font-family: poppins">BuildIT</h2>
       </div>
       <div class="left menu">
-        <!-- <div class="link item" onclick="$('#site-settings').modal('show')"><i class="cog icon"></i> Settings</div> -->
-        <!-- <option value="1" mode="shell">Bash (4.4)</option>
-                    <option value="3" mode="text/x-pascal">Basic (fbc 1.05.0)</option>
-                    <option value="4" mode="c">C (gcc 7.2.0)</option>
-                    <option value="10" mode="cpp">C++ (g++ 7.2.0)</option>
-                    <option value="16" mode="csharp">C# (mono 5.4.0.167)</option>
-                    <option value="18" mode="clojure">Clojure (1.8.0)</option>
-                    <option value="19" mode="text/x-crystal">Crystal (0.23.1)</option>
-                    <option value="20" mode="text/x-elixir">Elixir (1.5.1)</option>
-                    <option value="21" mode="text/x-erlang">Erlang (OTP 20.0)</option>
-                    <option value="22" mode="go">Go (1.9)</option>
-                    <option value="23" mode="text/x-haskell">Haskell (ghc 8.2.1)</option>
-                    <option value="25" mode="plaintext">Insect (5.0.0)</option>
-                    <option value="26" mode="java">Java (OpenJDK 9 with Eclipse OpenJ9)</option>
-                    <option value="27" mode="java">Java (OpenJDK 8)</option>
-                    <option value="28" mode="java">Java (OpenJDK 7)</option>
-                    <option value="29" mode="javascript">JavaScript (nodejs 8.5.0)</option>
-                    <option value="31" mode="text/x-ocaml">OCaml (4.05.0)</option>
-                    <option value="32" mode="text/x-octave">Octave (4.2.0)</option>
-                    <option value="33" mode="pascal">Pascal (fpc 3.0.0)</option>
-                    <option value="34" mode="python">Python (3.6.0)</option>
-                    <option value="36" mode="python">Python (2.7.9)</option>
-                    <option value="38" mode="ruby">Ruby (2.4.0)</option>
-                    <option value="42" mode="rust">Rust (1.20.0)</option>
-                    <option value="43" mode="plaintext">Text (plain text)</option>
-                    <option value="44" mode="plaintext">Executable</option>  -->
         <div class="item fitted borderless left-padding">
           <select id="select-language" class="ui dropdown"></select>
         </div>
         <div class="item fitted borderless left-padding">
-          <button id="run-btn" class="ui primary icon button">Run</button>
+          <button
+            id="run-btn"
+            class="ui primary icon button"
+            style="display: flex; align-items: center"
+          >
+            Run
+            <span
+              class="material-icons-outlined"
+              style="font-size: large; color: rgb(48, 48, 48)"
+            >
+              play_arrow
+            </span>
+          </button>
         </div>
         <div class="item fitted borderless left-padding">
-          <button id="submit-btn" class="ui green icon button">Submit</button>
+          <button
+            id="submit-btn"
+            class="ui green icon button"
+            style="display: flex; align-items: center"
+          >
+            Submit
+            <span
+              class="material-icons-outlined"
+              style="font-size: large; color: rgb(46, 46, 46)"
+            >
+              arrow_forward
+            </span>
+          </button>
           <!-- <pre id="tutorials" style="color: cyan; font-size: large;"></pre> -->
         </div>
         <!-- <div class="item fitted borderless left-padding">
                 <pre id="questionIdText" style="color: orangered; font-size: large;"></pre>
             </div> -->
+        <div class="item fitted borderless left-padding">
+          <select
+            name="Theme"
+            id="Theme"
+            style="height: fit-content"
+            class="ui dropdown"
+          >
+            <option value="vs">Light</option>
+            <option value="vs-dark">Dark</option>
+            <option value="hc-black">Dark Contrast</option>
+          </select>
+        </div>
       </div>
       <div class="right menu">
         <a
           class="link item"
           id="tutorials"
-          style="color: cyan; font-size: large"
+          style="
+            color: rgb(35, 35, 35);
+            font-size: large;
+            background: rgb(186, 218, 255);
+            border: 0.5mm solid rgb(52, 52, 52);
+            height: fit-content;
+            padding: 7px 15px;
+            border-radius: 6mm;
+            font-size: large;
+          "
         ></a>
         <a
           class="link item"
           id="questionIdText"
-          style="color: orangered; font-size: large"
+          style="
+            color: rgb(35, 35, 35);
+            font-size: large;
+            background: rgb(196, 234, 207);
+            border: 0.5mm solid rgb(52, 52, 52);
+            height: fit-content;
+            padding: 7px 15px;
+            border-radius: 6mm;
+            margin-right: 10px;
+          "
         ></a>
-        <a
-          class="link item"
-          id="username"
-          style="color: pink; font-size: large"
-        ></a>
-        <img
-          id="userImage"
-          class="link item"
-          width="90px"
-          height="90px"
-          src="images/defaultuser.png"
-        />
       </div>
     </div>
 

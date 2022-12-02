@@ -57,8 +57,13 @@
           </span>
           <span class="allInputs">
             <span class="inputf">
-              <p class="comments">Contest ID</p>
-              <input name="contestId" class="small" placeholder="ID" />
+              <p class="comments">Editorial:</p>
+              <input
+                name="editorial"
+                id="editorial"
+                class="small"
+                placeholder="Editorial"
+              />
             </span>
             <span class="inputf">
               <p class="comments">Author:</p>
@@ -238,31 +243,47 @@
           </span>
           <span class="allInputs">
             <span class="inputf">
-              <p class="comments">Editorial:</p>
-              <input name="editorial" id="editorial" class="small" />
+              <p class="comments">Topics</p>
+              <textarea name="topics" rows="10" class="large"></textarea>
+            </span>
+            <span class="inputf">
+              <p class="comments">Companies</p>
+              <textarea name="companies" rows="10" class="large"></textarea>
             </span>
           </span>
-          <!-- <span class="allInputs">
-        <span class="inputf" style="display: flex; flex-direction:column;">
-        <p class="comments"><b>Level:</b></p>
-        <input type="radio" name="difficulty" value="level_0" required> Level 0 </input>
-        <input type="radio" name="difficulty" value="level_1"> Level 1 </input>
-        <input type="radio" name="difficulty" value="level_2"> Level 2 </input>
-        <input type="radio" name="difficulty" value="contest"> Contest </input>
-        <hr>
-        </span>
-        </span>
-        <span class="allInputs">
-        <span class="inputf" style="display: flex; flex-direction:column;">
-        <p class="comments"><b>SubLevel (if any):</b></p>
-        <input type="radio" name="conceptLevel" value="0"> Basics </input>
-        <input type="radio" name="conceptLevel" value="1"> Control Structures </input>
-        <input type="radio" name="conceptLevel" value="2"> Arrays/Lists </input>
-        <input type="radio" name="conceptLevel" value="3"> Pointers/Objects </input>
-        <input type="radio" name="conceptLevel" value="4"> Structures/Objects </input> 
-        
-        </span>
-        </span>-->
+          <span class="allInputs">
+            <p class="comments" style="margin-top: 20px">
+              <b>Difficulty</b>
+            </p>
+          </span>
+          <span class="allInputs">
+            <span class="inputf rflex">
+              <span class="radio">
+                <input
+                  type="radio"
+                  name="difficulty"
+                  value="Easy"
+                  required
+                  id="easy"
+                />
+                <label for="easy">Easy</label>
+              </span>
+              <span class="radio">
+                <input
+                  type="radio"
+                  name="difficulty"
+                  value="Medium"
+                  id="medi"
+                />
+                <label for="medi">Medium</label>
+              </span>
+              <span class="radio">
+                <input type="radio" name="difficulty" value="Hard" id="hard" />
+                <label for="hard">Hard</label>
+              </span>
+            </span>
+            <hr />
+          </span>
           <hr />
           <textarea
             type="hidden"

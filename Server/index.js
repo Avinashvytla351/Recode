@@ -44,8 +44,6 @@ app.use(
     extended: true,
   })
 );
-app.set("view engine", "ejs");
-app.use("/Public", express.static(__dirname + "/Public"));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
@@ -663,13 +661,7 @@ app.post("/validateSubmission", middleware.checkToken, async (req, res) => {
   } else {
     // Course Validation
     courses.findCourseLanguage(req, (err, course) => {
-      course = course[0];
-      if (err) {
-        res
-          .status(404)
-          .send({ message: "Course not found with id " + req.body.courseId });
-      }
-      if (course.languageId === req.body.language_id) {
+      if (1) {
         questions.getTestCases(req, (err, testcases) => {
           if (err) {
             res.status(404).send({
@@ -1127,10 +1119,6 @@ app.get("/plagreport/:languageId/:questionId", async (req, res) => {
     .catch(res.send("Failed"));
 });
 
-app.get("*", async (req, res) => {
-  let data = req.body;
-  res.render("serverMessage", data);
-});
 schedule.scheduleJob("59 23 * * 0", async function () {
   await SkillUp.findAll(async (err, skillUps) => {
     skillUps.forEach(async (skillUp) => {

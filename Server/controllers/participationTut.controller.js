@@ -13,33 +13,28 @@ exports.create = (req, res) => {
     });
   }
 
-  if (!req.body.courseId) {
-    return res.status(400).send({
-      success: false,
-      message: "course Id can not be empty",
-    });
-  }
-
-  Participation.find({ participationId: req.body.username + req.body.courseId })
+  Participation.find({ participationId: req.body.username + "practice" })
     .then((participation) => {
       if (participation.length === 0) {
         // Create a Participation
+
         const participation = new Participation({
-          participationId: req.body.username + req.body.courseId,
+          participationId: req.body.username + "practice",
           username: req.body.username,
-          courseId: req.body.courseId,
           submissionResults: [],
           easySolved: [],
           mediumSolved: [],
           hardSolved: [],
-          contestSolved: [],
-          practiceSolved: [],
         });
+
         // Save participation in the database
         participation
           .save()
           .then((data) => {
-            res.send(data);
+            res.send({
+              success: true,
+              data: data,
+            });
           })
           .catch((err) => {
             res.status(500).send({
@@ -69,7 +64,7 @@ exports.insertDifficultyWise = (sub, callback) => {
       participation = participation[0];
       // console.log(participation);
       // console.log(sub);
-      if (sub.difficulty === "level_0") {
+      if (sub.difficulty === "Easy") {
         if (sub.score === 100) {
           let exists = inarray(participation.easySolved, sub.questionId);
           if (!exists) {
@@ -84,7 +79,7 @@ exports.insertDifficultyWise = (sub, callback) => {
           // console.log("Returned");
           return callback(null, participation);
         }
-      } else if (sub.difficulty === "level_1") {
+      } else if (sub.difficulty === "Medium") {
         if (sub.score === 100) {
           let exists = inarray(participation.mediumSolved, sub.questionId);
           if (!exists) {
@@ -98,7 +93,7 @@ exports.insertDifficultyWise = (sub, callback) => {
         } else {
           return callback(null, participation);
         }
-      } else if (sub.difficulty === "level_2") {
+      } else if (sub.difficulty === "Hard") {
         if (sub.score === 100) {
           let exists = inarray(participation.hardSolved, sub.questionId);
           if (!exists) {
@@ -168,26 +163,13 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findCourse = (req, res) => {
-  Participation.find({ courseId: req.body.courseId })
-    .then((participation) => {
-      res.send(participation);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        success: false,
-        message:
-          err.message || "Some error occurred while retrieving participation.",
-      });
-    });
-};
 // Retrieve and return all participation details for user in contest.
 exports.findUser = (req, res) => {
   Participation.find({
-    participationId: req.decoded.username + req.params.courseId,
+    participationId: req.decoded.username + "practice",
   })
     .then((participation) => {
-      res.send(participation);
+      res.send(participation[0]);
     })
     .catch((err) => {
       res.status(500).send({
@@ -224,55 +206,5 @@ exports.findUserPart = (result, callback) => {
         return callback("Couldn't find participation, caught exception", null);
       }
       return callback("Error retrieving data", null);
-    });
-};
-
-exports.findContentDevSolved = (req, res) => {
-  Participation.find({ username: req.params.username })
-    .then((participation) => {
-      if (!participation) {
-        return res.send({
-          status: false,
-          message: "Participation not found with Id",
-        });
-      }
-      let programmerId = req.params.username.substr(7);
-      programmerId = programmerId.toUpperCase();
-      let programmerSpecific = participation
-        .map((v) => v.practiceSolved)
-        .reduce((a, b) => a.concat(b), [])
-        .filter((v) => v.substr(0, 3) === programmerId);
-
-      res.send(programmerSpecific);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        success: false,
-        message:
-          err.message || "Some error occurred while retrieving participation.",
-      });
-    });
-};
-
-exports.findUserCourses = (req, res) => {
-  Participation.find({
-    username: req.body.username,
-  })
-    .then((participation) => {
-      let arr = [];
-      for (var i = 0; i < participation.length; i++) {
-        arr.push(participation[i].courseId);
-      }
-      res.send({
-        success: true,
-        data: arr,
-      });
-    })
-    .catch((err) => {
-      res.status(500).send({
-        success: false,
-        message:
-          err.message || "Some error occurred while retrieving participation.",
-      });
     });
 };

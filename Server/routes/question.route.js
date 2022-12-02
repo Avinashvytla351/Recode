@@ -33,7 +33,6 @@ module.exports = (app) => {
     middleware.checkTokenAdmin,
     questions.createTutorials
   );
- 
 
   // Create a new question for Tutorials
   app.post(
@@ -57,34 +56,17 @@ module.exports = (app) => {
     middleware.checkToken,
     questions.findAllContest
   );
-
-  // Retrieve all questions with courseId
   app.get(
-    "/questions/courses/:courseId",
+    "/questions/practice/:division",
     middleware.checkToken,
-    questions.findAllCourse
-  );
-
-  // Retrieve all questions with courseId and diff
-  app.get(
-    "/questions/courses/:courseId/:difficulty",
-    middleware.checkToken,
-    questions.findAllCourseDifficulty
-  );
-
-  // Retrieve all questions with courseId and diff/subdiff
-  app.get(
-    "/questions/courses/:courseId/:difficulty/:conceptLevel",
-    middleware.checkToken,
-    questions.findAllCourseConceptWise
+    questions.findPracticeNames
   );
 
   app.get(
-    "/questions/practice/:courseId/:title/:name",
+    "/questions/practice/:division/:title",
     middleware.checkToken,
-    questions.findAllCourseTopicWise
+    questions.findPracticeByTitle
   );
-  
   //Delete multiple questions
   app.post(
     "/deletequestions/multiple/:questionIds",
@@ -93,23 +75,12 @@ module.exports = (app) => {
   );
 
   // Update a question with questionId
-  app.post(
-    "/questions/:questionId",
-    middleware.checkToken,
-    questions.update
-  );
+  app.post("/questions/:questionId", middleware.checkToken, questions.update);
 
   // Delete a question with questionId
   app.delete(
     "/questions/:questionId",
     middleware.checkTokenAdmin,
     questions.delete
-  );
-
-  // Create a new question
-  app.post(
-    "/questions/mergeCourse",
-    middleware.checkTokenAdmin,
-    questions.merge
   );
 };

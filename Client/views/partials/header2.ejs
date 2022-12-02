@@ -7,19 +7,19 @@
       </div>
       <div class="chapter-nav-btn">
         <button class="nav-btn"><a href="/">Home</a></button>
-        <button class="nav-btn"><a href="/about">About</a></button>
+        <!-- <button class="nav-btn"><a href="/about">About</a></button>-->
         <button class="nav-btn"><form action="/skill" method="POST" style="outline: none; border: none;">
             <a class="nav-link" onclick="this.parentNode.submit();" >Leaderboard</a>
           </form></button>
         <% if(imgUsername){ %>
           <button class="nav-btn"><a href="/contest">Experiments</a></button>
+          <button class="nav-btn"><a href="/practice">Practice</a></button>
+          <button class="nav-btn"><a href="/qualifier_tests">Play House</a></button>
           <% } %>
           <% if (imgUsername){ %>
         <div class="nav-dots">
           <button type="button" class="threedots"><span class="material-icons">more_vert</span></button>
           <div class="dots-nav">
-            <a href="/tutorials" class="nav-btn4">Tutorials</a>
-            <a href="/qualifier_tests" class="nav-btn4">Play House</a>
             <a href="/profile" class="nav-btn4">Profile</a>
             <a href="/logout" class="nav-btn4">Logout</a>
           </div>
@@ -70,7 +70,7 @@
           </form></button>
           <% if (imgUsername){ %>
         <button class="nav-btn2" onclick="navslide()"><a href="/contest">Experiments <span class="material-icons">arrow_forward<span></span></a></button>
-        <button class="nav-btn2" onclick="navslide()"><a href="/tutorials">Tutorials <span class="material-icons">arrow_forward<span></span></a></button>
+        <button class="nav-btn2" onclick="navslide()"><a href="/practice">Practice <span class="material-icons">arrow_forward<span></span></a></button>
         <button class="nav-btn2" onclick="navslide()"><a href="/qualifier_tests">Qualifier Test <span class="material-icons">arrow_forward<span></span></a></button>
         <button class="nav-btn2" onclick="navslide()"><a href="/ResumeBuilder">Resume Builder <span class="material-icons">arrow_forward<span></span></a></button>
         <button class="nav-btn2" onclick="navslide()"><a href="/resume/<%= imgUsername%>">My Resume <span class="material-icons">arrow_forward<span></span></a></button>

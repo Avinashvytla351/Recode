@@ -25,13 +25,14 @@ var questionSchema = new Schema({
   questionExplanation: String,
   author: String,
   editorial: String,
-  difficulty: String,
-  language: String,
+  difficulty: {
+    type: String,
+    default: "Medium",
+  },
   courseId: Array,
-  conceptLevel: String,
   company: Array,
   topic: Array,
-  CountValue:Number,
+  CountValue: Number,
 });
 
 module.exports = mongoose.model("Question", questionSchema);

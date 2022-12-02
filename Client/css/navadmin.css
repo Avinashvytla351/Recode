@@ -79,6 +79,28 @@ textarea:focus {
   flex-grow: 1;
   margin: auto 10px;
 }
+.rflex {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  flex-grow: 0;
+  flex-wrap: wrap;
+}
+.radio {
+  display: block;
+  width: 150px;
+  border: 0.5mm solid black;
+  padding: 5px 10px;
+}
+.radio:hover {
+  box-shadow: 5px 5px 0px black;
+}
+input[type="radio"] {
+  width: fit-content;
+  cursor: pointer;
+}
 input[type="radio"]:focus {
   box-shadow: none;
   width: fit-content;

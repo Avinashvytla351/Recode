@@ -2,7 +2,7 @@
 <html lang="zxx">
   <head>
     <meta charset="utf-8" />
-    <title id="demo1">Tutorials</title>
+    <title id="demo1">Practice</title>
 
     <!-- mobile responsive meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,8 +20,6 @@
     <link rel="stylesheet" href="../plugins/themify-icons/themify-icons.css" />
     <link rel="icon" type="image/png" href="/images/logo-backup2.png" />
 
-    <!-- Main Stylesheet -->
-    <link href="/css/style.css" rel="stylesheet" />
     <link href="/datatables/dataTables.min.css" rel="stylesheet" />
 
     <!--Favicon-->
@@ -32,62 +30,115 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style2.css" />
+    <style>
+      .main-space2 {
+        width: 100%;
+        height: 90vh;
+        background: url(../images/questions.svg);
+        background-attachment: fixed;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .big {
+        font-size: 85px !important;
+        background: white;
+        color: black !important;
+        font-family: poppins;
+      }
+      table {
+        font-family: poppins;
+        border-radius: 0.75mm;
+        overflow: hidden;
+        border: 0.5mm solid rgba(21, 22, 23, 0.196) !important;
+      }
+      .qlink {
+        text-decoration: none;
+        font-family: poppins;
+        font-weight: 500;
+        color: rgb(61, 61, 61);
+        padding: 5px 10px;
+        border-radius: 5mm;
+      }
+      .qlink:hover {
+        text-decoration: none;
+        background: rgba(0, 0, 0, 0.054);
+      }
+      .container {
+        padding: 50px 0;
+      }
+      th {
+        color: rgba(0, 0, 0, 0.623) !important;
+        font-weight: 300 !important;
+        font-size: 15px !important;
+      }
+      .icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        line-height: 30px;
+        text-align: center;
+        font-size: 19px;
+      }
+      .green {
+        background: rgb(239, 255, 246);
+        color: rgb(39, 135, 76);
+      }
+      .diff {
+        padding: 4px 10px;
+        border-radius: 5mm;
+      }
+    </style>
   </head>
 
   <body>
-    <%- include('../views/partials/header2') %>
-
     <!-- page title -->
-    <section
-      class="page-title bg-primary position-relative"
-      style="height: 1vh"
-    >
-      <div class="container">
-        <div class="row">
-          <div class="col-12 text-center">
-            <h2 class="text-white font-tertiary"><%= data.courseName %></h2>
-            <br />
-          </div>
-        </div>
+    <section class="main-space2">
+      <%- include('../views/partials/header2') %>
+      <div class="content">
+        <div class="big"><%= title %></div>
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <table
-          id="questions"
-          class="table table-striped table-bordered"
-          style="width: 100%"
-        >
-          <thead>
+      <div class="container table-responsive">
+        <table id="questions" class="table" style="width: 100%">
+          <thead class="thead-light">
             <tr>
               <th>#</th>
               <th>Question Name</th>
               <th>Status</th>
+              <th>Difficulty</th>
             </tr>
           </thead>
           <tbody>
             <% for (let i = 0; i < data.length; i++ ){ %>
-            <tr style="background: <%= data[i].color %>">
+            <tr>
               <td><%= i+1 %></td>
               <td>
                 <a
-                  href="<%= data.clientRoute %>/tutorials/questions/<%= data[i].questionId%>"
+                  href="<%= clientUrl %>/practice/questions/<%= data[i].questionId%>"
                   target="_blank"
+                  class="qlink"
                   ><%= data[i].questionName %></a
                 >
               </td>
-              <td><%= data[i].solved %></td>
+              <td>
+                <% if(data[i].solved){ %>
+                <span class="material-icons-outlined icon green">
+                  task_alt
+                </span>
+                <% } else {%>
+                <span class="material-icons-outlined icon red"> remove </span>
+                <%}%>
+              </td>
+              <td>
+                <span class="diff"><%= data[i].difficulty %></span>
+              </td>
             </tr>
             <% } %>
           </tbody>
-          <tfoot>
-            <tr>
-              <th>#</th>
-              <th>Question Name</th>
-              <th>Status</th>
-            </tr>
-          </tfoot>
         </table>
       </div>
     </section>
@@ -109,6 +160,23 @@
     <script>
       $(document).ready(function () {
         $("#questions").DataTable();
+      });
+
+      let colors = document.querySelectorAll(".diff");
+      colors.forEach((item) => {
+        let val = item.innerHTML;
+        val = val.toUpperCase();
+
+        if (val == "HARD") {
+          item.style.color = "rgb(255, 71, 71)";
+          item.style.background = "rgb(255, 238, 238)";
+        } else if (val == "MEDIUM") {
+          item.style.color = "rgb(187, 107, 9)";
+          item.style.background = "rgb(255, 250, 227)";
+        } else {
+          item.style.color = "rgb(25, 107, 25)";
+          item.style.background = "rgb(227, 255, 227)";
+        }
       });
     </script>
   </body>

@@ -82,7 +82,7 @@
           (data[i].contestDate === new Date().toISOString().slice(0,10)) { %>
           <div class="contest">
             <a
-              href="qualifier_test/<%= data[i].contestId %>"
+              href="/qualifier_test/<%= data[i].contestId %>"
               target="_blank"
               class="cardy active"
             >
@@ -131,7 +131,7 @@
           (data[i].contestDate !== new Date().toISOString().slice(0,10)) { %>
           <div class="contest">
             <a
-              href="qualifier_test/<%= data[i].contestId %>"
+              href="/qualifier_test/<%= data[i].contestId %>"
               target="_blank"
               class="cardy"
             >

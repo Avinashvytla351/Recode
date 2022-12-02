@@ -38,6 +38,7 @@ app.use("/", express.static(__dirname + "/"));
 app.use("/ide", express.static(path.resolve("../IDE")));
 
 app.use("/tutorials", express.static(__dirname + "/"));
+app.use("/practice", express.static(__dirname + "/"));
 app.use("/contests", express.static(__dirname + "/"));
 app.use("/qualifier_test/:contestId", express.static(__dirname + "/"));
 app.use("/qualifierTestScore", express.static(__dirname + "/"));
@@ -2399,9 +2400,12 @@ app.get(
 );
 
 app.get(
-  "/tutorials/questions/:questionId",
+  "/practice/questions/:questionId",
   checkSignIn,
   async (req, res, next) => {
+    if (!req.cookies.courseId) {
+      res.cookie("courseId", "practice");
+    }
     let options = {
       url: serverRoute + "/questions/" + req.params.questionId,
       method: "get",
@@ -2449,6 +2453,178 @@ app.get("/verify", async (req, res) => {
   });
 });
 
+app.get("/practice", checkSignIn, async (req, res) => {
+  if (!req.cookies.courseId) {
+    res.cookie("courseId", "practice");
+  }
+  let options = {
+    url: serverRoute + "/tparticipations",
+    method: "get",
+    headers: {
+      authorization: req.cookies.token,
+    },
+    json: true,
+  };
+  request(options, (err, response, body) => {
+    res.render("questionsTutPractice", {
+      imgUsername: req.cookies.username,
+      data: body,
+    });
+  });
+});
+
+app.get("/practice/:division", checkSignIn, async (req, res) => {
+  if (!req.cookies.courseId) {
+    res.cookie("courseId", "practice");
+  }
+  let options = {
+    url: serverRoute + "/tparticipations",
+    method: "get",
+    headers: {
+      authorization: req.cookies.token,
+    },
+    json: true,
+  };
+  request(options, (err, response, body) => {
+    let options = {
+      url: serverRoute + "/questions/practice/" + req.params.division,
+      method: "get",
+      headers: {
+        authorization: req.cookies.token,
+      },
+      json: true,
+    };
+    request(options, (err, response, body) => {
+      let div = req.params.division.toUpperCase();
+      if (div === "TOPICS" || div === "COMPANIES") {
+        let arrList = [];
+        let myMap = {};
+        if (div == "TOPICS") {
+          for (var i = 0; i < body.data.length; i++) {
+            arrList = arrList.concat(body.data[i].topic);
+          }
+          for (var i = 0; i < body.data.length; i++) {
+            for (var j = 0; j < body.data[i].topic.length; j++) {
+              if (myMap[body.data[i].topic[j]]) {
+                myMap[body.data[i].topic[j]] += 1;
+              } else {
+                myMap[body.data[i].topic[j]] = 1;
+              }
+            }
+          }
+        } else {
+          for (var i = 0; i < body.data.length; i++) {
+            arrList = arrList.concat(body.data[i].company);
+          }
+          for (var i = 0; i < body.data.length; i++) {
+            for (var j = 0; j < body.data[i].company.length; j++) {
+              if (myMap[body.data[i].company[j]]) {
+                myMap[body.data[i].company[j]] += 1;
+              } else {
+                myMap[body.data[i].company[j]] = 1;
+              }
+            }
+          }
+        }
+        let myArr = new Set(arrList);
+        res.render("practiceTutList", {
+          imgUsername: req.cookies.username,
+          myArr: myArr,
+          myMap: myMap,
+          clientUrl: clientRoute,
+          title: req.params.division,
+        });
+      } else {
+        let options = {
+          url: serverRoute + "/tparticipations/getOne",
+          method: "get",
+          headers: {
+            authorization: req.cookies.token,
+          },
+          json: true,
+        };
+        request(options, (err, response, bodytimer) => {
+          for (let i = 0; i < body.data.length; i++) {
+            if (
+              bodytimer.submissionResults.indexOf(body.data[i].questionId) !==
+              -1
+            ) {
+              body.data[i].solved = "1";
+              body.data[i].color = "rgb(161,237,177)";
+            } else {
+              body.data[i].solved = "0";
+              body.data[i].color = "";
+            }
+          }
+          res.render("displayTutQuestions", {
+            data: body.data,
+            imgUsername: req.cookies.username,
+            clientUrl: clientRoute,
+            title: "All Questions",
+          });
+        });
+      }
+    });
+  });
+});
+
+app.get("/practice/:division/:title", async (req, res) => {
+  if (!req.cookies.courseId) {
+    res.cookie("courseId", "practice");
+  }
+  let options = {
+    url: serverRoute + "/tparticipations",
+    method: "get",
+    headers: {
+      authorization: req.cookies.token,
+    },
+    json: true,
+  };
+  request(options, (err, response, body) => {
+    let options = {
+      url:
+        serverRoute +
+        "/questions/practice/" +
+        req.params.division +
+        "/" +
+        req.params.title,
+      method: "get",
+      headers: {
+        authorization: req.cookies.token,
+      },
+      json: true,
+    };
+    request(options, (err, response, body) => {
+      let options = {
+        url: serverRoute + "/tparticipations/getOne",
+        method: "get",
+        headers: {
+          authorization: req.cookies.token,
+        },
+        json: true,
+      };
+      request(options, (err, response, bodytimer) => {
+        for (let i = 0; i < body.data.length; i++) {
+          if (
+            bodytimer.submissionResults.indexOf(body.data[i].questionId) !== -1
+          ) {
+            body.data[i].solved = 1;
+            body.data[i].color = "rgb(161,237,177)";
+          } else {
+            body.data[i].solved = 0;
+            body.data[i].color = "";
+          }
+        }
+        res.render("displayTutQuestions", {
+          data: body.data,
+          imgUsername: req.cookies.username,
+          clientUrl: clientRoute,
+          title: req.params.title,
+        });
+      });
+    });
+  });
+});
 // Tutorials Code
 
 // app.get('/tutorials', async(req, res) => {
@@ -2457,15 +2633,15 @@ app.get("/verify", async (req, res) => {
 //   res.render('error', {data: body, imgUsername: req.cookies.username});
 // });
 
-app.get("/flipClass", async (req, res) => {
+/*app.get("/flipClass", async (req, res) => {
   let url = {
     url: clientRoute,
     surl: serverRoute,
   };
   res.render("flipClass", { imgUsername: req.cookies.username, data: url });
-});
+});*/
 
-app.get("/tutorials", checkSignIn, async (req, res, next) => {
+/*app.get("/tutorials", checkSignIn, async (req, res, next) => {
   let options = {
     url: serverRoute + "/courses",
     method: "get",
@@ -2478,9 +2654,9 @@ app.get("/tutorials", checkSignIn, async (req, res, next) => {
   request(options, function (err, response, body) {
     res.render("tutorials", { imgUsername: req.cookies.username, data: body });
   });
-});
+});*/
 
-app.get(
+/*app.get(
   "/tutorials/:courseId/progress",
   checkSignIn,
   async (req, res, next) => {
@@ -2550,7 +2726,7 @@ app.get(
         } else if (req.params.courseId === "PRACTICE") {
           body.courseName = "Practice Section";
           body.courseId = "PRACTICE";
-        }  else {
+        } else {
           body.courseName = "Invalid Course";
         }
         res.render("tutProgress", {
@@ -2561,9 +2737,9 @@ app.get(
       });
     });
   }
-);
+);*/
 
-app.get(
+/*app.get(
   "/tutorials/:courseId/:difficulty/:concept",
   checkSignIn,
   async (req, res, next) => {
@@ -2630,8 +2806,8 @@ app.get(
           body.courseName = "Invalid Course";
         }
         // Course level
-        if(body.courseId !== "PRACTICE"){
-          console.log(body.courseId)
+        if (body.courseId !== "PRACTICE") {
+          console.log(body.courseId);
           if (req.params.concept === "bs") {
             body.courseName = body.courseName + " - Basics";
           } else if (req.params.concept === "cs") {
@@ -2686,10 +2862,16 @@ app.get(
       },
       json: true,
     };
-
+    console.log(options, req.params.courseId);
     request(options, function (err, response, body) {
       if (ifTopicsOrCompanies) {
-        let courseIds = ["IARE_PY", "IARE_C", "IARE_JAVA", "IARE_CPP", "PRACTICE"];
+        let courseIds = [
+          "IARE_PY",
+          "IARE_C",
+          "IARE_JAVA",
+          "IARE_CPP",
+          "PRACTICE",
+        ];
         let isCourseValid = courseIds.includes(req.params.courseId);
         let ifTopics = difficulty === "Topics";
 
@@ -2700,14 +2882,12 @@ app.get(
             : "Select a company"
           : "Invalid Course";
 
-        
-
         res.render("practiceTutList", {
           imgUsername: req.cookies.username,
           title: difficulty,
           data: body,
         });
-      } else if(isAllQues) {
+      } else if (isAllQues) {
         let options = {
           url: serverRoute + "/questions",
           method: "get",
@@ -2717,14 +2897,14 @@ app.get(
           json: true,
         };
         request(options, function (err, response, body) {
-          body.courseName = "All Questions"
+          body.courseName = "All Questions";
           res.render("displayTutQuestions", {
             imgUsername: req.cookies.username,
             title: difficulty,
             data: body,
           });
         });
-      }else {
+      } else {
         let options3 = {
           url: serverRoute + "/tparticipations/" + req.params.courseId,
           method: "get",
@@ -2837,14 +3017,13 @@ app.get("/tutorials/:courseId", checkSignIn, async (req, res, next) => {
         } else {
           body.courseName = "Invalid Course";
         }
-        if(body.courseId === "PRACTICE"){
+        if (body.courseId === "PRACTICE") {
           res.render("questionsTutPractice", {
             imgUsername: req.cookies.username,
             data: body,
             datatimer: bodytimer,
           });
-        }
-        else{
+        } else {
           res.render("questionsTut", {
             imgUsername: req.cookies.username,
             data: body,
@@ -2854,73 +3033,14 @@ app.get("/tutorials/:courseId", checkSignIn, async (req, res, next) => {
       });
     });
   });
-});
-
-app.get("/certificate", async (req, res) => {
-  let options = {
-    url: serverRoute + "/users/" + req.cookies.username.toLowerCase(),
-    method: "get",
-    headers: {
-      authorization: req.cookies.token,
-    },
-    json: true,
-  };
-
-  request(options, function (err, response, body) {
-    let options = {
-      url: serverRoute + "/skills/" + req.cookies.username,
-      method: "get",
-      headers: {
-        authorization: req.cookies.token,
-      },
-      json: true,
-    };
-
-    request(options, (err, response, body2) => {
-      if (!body2.message) {
-        res.render("certificate", {
-          imgUsername: req.cookies.username,
-          imgBranch: req.cookies.branch,
-          data: body2,
-          name: body.name,
-        });
-      } else {
-        res.render("error", {
-          data: body2,
-          imgUsername: body.name,
-        });
-      }
-    });
-  });
-});
-
-app.get("/codechef-iare-chapter", async (req, res, next) => {
-  let options = {
-    url: serverRoute + "/codechef-events/",
-    method: "get",
-    headers: {
-      authorization: req.cookies.token,
-    },
-    json: true,
-  };
-
-  request(options, (err, response, body) => {
-    if (!body.message) {
-      res.render("iare_chapter", { data: body });
-    } else {
-      res.render("error", {
-        data: body,
-      });
-    }
-  });
-});
+});*/
 
 app.get("/userSession/:sessionId", (req, res) => {
   if (userSessions2.includes(req.params.sessionId))
     res.status(200).send({ status: true });
   else res.status(404).send({ status: false, message: "user logged out!" });
 });
-app.get("/resume", checkSignIn, async (req, res) => {
+/*app.get("/resume", checkSignIn, async (req, res) => {
   let options = {
     url: serverRoute + "/resume/" + req.cookies.username,
     method: "get",
@@ -3130,7 +3250,7 @@ app.get("/ResumeBuilder", checkSignIn, async (req, res) => {
 
 app.get("/potdReport", checkSignIn, async (req, res) => {
   res.render("potdReport", { imgUsername: req.cookies.username });
-});
+});*/
 
 app.get("/skillCertificate", checkSignIn, async (req, res) => {
   let options = {

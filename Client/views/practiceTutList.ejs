@@ -9,18 +9,7 @@
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
 
-    <!-- ** Plugins Needed for the Project ** -->
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="../plugins/bootstrap/bootstrap.min.css" />
-    <!-- slick slider -->
-    <link rel="stylesheet" href="../plugins/slick/slick.css" />
-    <!-- themefy-icon -->
-    <link rel="stylesheet" href="../plugins/themify-icons/themify-icons.css" />
     <link rel="icon" type="image/png" href="../../images/logo-backup2.png" />
-
-    <!-- Main Stylesheet -->
-    <link href="../css/dist/jquery.flipster.css" rel="stylesheet" />
-    <link href="../css/style.css" rel="stylesheet" />
 
     <!--Favicon-->
     <link
@@ -40,89 +29,81 @@
     />
     <link rel="icon" href="../images/favicon.ico" type="image/x-icon" />
     <title><%= title %></title>
-    <link rel="stylesheet" href="../css/style2.css">
+    <link rel="stylesheet" href="../css/style2.css" />
+    <style></style>
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet"
+    />
     <style>
-      .section {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-      }
-      .practiceItem {
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 35px;
-        width: 350px;
-        height: 200px;
-        text-align: center;
-        margin: 20px 0;
-        border-radius: 3mm;
-        color: rgb(56, 56, 56);
-        font-family: poppins;
-        font-weight: bold;
-        background: rgb(242,242,242);
-        position: relative;
-      }
-      .practiceItem:hover {
-        background: rgb(249,187,45);
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.178);
-        color: rgb(27, 27, 27);
-      }
-      .play{
-        position: absolute;
-        bottom: 5px;
-        right: 5px;
-        font-size: xx-large;
+      .chapter-navigation {
+        background: white !important;
       }
     </style>
-      <link
-      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-      rel="stylesheet">
-  
   </head>
-  <body>
-    <%- include('../views/partials/header2') %>
+  <body style="background: rgb(245, 244, 246); margin: 0; padding: 0">
     <!-- page title -->
-    <section class="page-title bg-primary position-relative">
-      <center>
-        <h2 class="text-white font-tertiary"><%= data.courseName %></h2>
-      </center>
+    <%- include('../views/partials/header2') %>
+    <section class="no-area">
+      <%= title %>
       <br />
     </section>
     <!-- /page title -->
-    <section class="section">
-      <% var myList = [] %>
-      <% if(title == "Topics") { %>
-        <% for(var i =0;i<data.length;i++) { %>
-          <%  myList=myList.concat(data[i].topic);%>
-      <% } } else { %>
-        <% for(var i =0;i<data.length;i++) { %>
-          <% myList = myList.concat(data[i].company);%>
-      <% } } %>
-      <%var myArr = new Set(myList) %>
+    <section class="section prac-top-com">
       <% myArr.forEach(i=>{ %>
       <a
-        href="<%= data.clientRoute %>/tutorials/<%= data.courseId %>/<%= title%>-<%=i %>"
+        href="<%= clientUrl %>/practice/<%= title %>/<%= i %>"
         class="practiceItem"
       >
-      <span class="material-icons play">play_arrow</span>
-      <%= i %>
+        <div class="topic-top">
+          <span class="material-icons-outlined icon"> all_inclusive </span>
+        </div>
+        <div class="topic-body"><%= i %></div>
+        <div class="topic-bottom">
+          <div class="tb-left">
+            <span class="material-icons-round"> terminal </span><%= myMap[i] %>:
+            Questions
+          </div>
+          <div class="tb-right">
+            <span class="material-icons play">play_arrow</span>
+          </div>
+        </div>
       </a>
       <% }) %>
     </section>
+    <script>
+      let items = [
+        "lightbulb",
+        "code",
+        "grade",
+        "rocket_launch",
+        "change_history",
+        "waves",
+        "auto_awesome",
+        "wb_sunny",
+        "sentiment_satisfied_alt",
+        "sailing",
+        "stadium",
+        "play_arrow",
+        "pause",
+        "star_half",
+        "bubble_chart",
+        "data_object",
+        "shape_line",
+        "smart_toy",
+        "mouse",
+        "videogame_asset",
+        "gamepad",
+        "graphic_eq",
+        "fitness_center",
+        "light",
+        "electric_bolt",
+      ];
+      let icons = document.querySelectorAll(".icon");
+      icons.forEach((icon) => {
+        icon.innerHTML = items[Math.floor(Math.random() * items.length)];
+      });
+    </script>
     <%- include('../views/partials/footer') %>
-    <script src="../plugins/jQuery/jquery.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="../plugins/bootstrap/bootstrap.min.js"></script>
-    <!-- slick slider -->
-    <script src="../plugins/slick/slick.min.js"></script>
-    <!-- filter -->
-    <script src="../plugins/shuffle/shuffle.min.js"></script>
-
-    <!-- Main Script -->
-    <script src="../js/script.js"></script>
   </body>
 </html>
