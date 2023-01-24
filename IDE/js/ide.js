@@ -1,4 +1,4 @@
-var apiUrl = localStorageGetItem("api-url") || "http://13.234.234.30:3000";
+var apiUrl = localStorageGetItem("api-url") || "http://13.233.107.51:3000/";
 var serverUrl = "http://localhost:5000";
 var wait = localStorageGetItem("wait") || false;
 var pbUrl = "https://pb.judge0.com";
@@ -792,7 +792,8 @@ var crystalSource = 'puts "hello, world"\n';
 
 var elixirSource = 'IO.puts "hello, world"\n';
 
-var erlangSource = '\
+var erlangSource =
+  '\
 main(_) ->\n\
     io:fwrite("hello, world\\n").\n';
 
@@ -808,7 +809,8 @@ func main() {\n\
 
 var haskellSource = 'main = putStrLn "hello, world"\n';
 
-var insectSource = "\
+var insectSource =
+  "\
 2 min + 30 s\n\
 40 kg * 9.8 m/s^2 * 150 cm\n\
 sin(30°)\n";
@@ -838,7 +840,8 @@ var pythonSource = "#Code goes here!\n";
 
 var rubySource = 'puts "hello, world"\n';
 
-var rustSource = '\
+var rustSource =
+  '\
 fn main() {\n\
     println!("hello, world");\n\
 }\n';
