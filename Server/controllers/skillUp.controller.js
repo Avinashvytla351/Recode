@@ -10,21 +10,19 @@ const { JSDOM } = jsdom;
 const request = require("request");
 const fetch = require("node-fetch");
 
-
 // All Coding Links
 var codeChefLink = "https://www.codechef.com/users/";
 var interviewBitLink = "https://www.interviewbit.com/profile/";
 var hackerRankFilter = "https://www.hackerrank.com/leaderboard?filter=";
-var hackerRankAlgoFilter = "&filter_on=hacker&page=1&track=algorithms&type=practice";
-var hackerRankDSFilter = "&filter_on=hacker&page=1&track=data-structures&type=practice";
+var hackerRankAlgoFilter =
+  "&filter_on=hacker&page=1&track=algorithms&type=practice";
+var hackerRankDSFilter =
+  "&filter_on=hacker&page=1&track=data-structures&type=practice";
 var spojLink = "https://www.spoj.com/users/";
 var geeksForGeeksLink = "https://auth.geeksforgeeks.org/user/";
 var codeForcesLink = "https://codeforces.com/profile/";
 var leetCodeApi = "https://leetcode.com/graphql";
 var leetCodeLink = "https://leetcode.com/";
-
-
-
 
 exports.create = (req, res) => {
   var leetCodeScore = 0;
@@ -51,7 +49,7 @@ exports.create = (req, res) => {
   var interviewBitScore = 0;
   var spojScore = 0;
   var geeksForGeeksScore = 0;
-  var buildITScore = 0;
+  var RecodeScore = 0;
   const calcScore = async () => {
     try {
       const score = await Promise.all([
@@ -65,8 +63,8 @@ exports.create = (req, res) => {
             a = a.split(")");
             a = a[0];
             a = Number(a);
-            totalScore += Math.round(a*10);
-            codeChefScore += Math.round(a*10);
+            totalScore += Math.round(a * 10);
+            codeChefScore += Math.round(a * 10);
             return Math.round(a * 10);
           })
           .catch((err) => {
@@ -81,16 +79,12 @@ exports.create = (req, res) => {
             a = Number(a);
             interviewBitScore += Math.round(a);
             totalScore += Math.round(a);
-            return  a;
+            return a;
           })
           .catch((err) => {
             return -1;
           }),
-        got(
-          hackerRankFilter +
-            req.body.hackerRankId +
-            hackerRankAlgoFilter
-        )
+        got(hackerRankFilter + req.body.hackerRankId + hackerRankAlgoFilter)
           .then((response) => {
             const dom = new JSDOM(response.body);
             a = dom.window.document.querySelectorAll(".score")[1].textContent;
@@ -102,11 +96,7 @@ exports.create = (req, res) => {
           .catch((err) => {
             return -1;
           }),
-        got(
-          hackerRankFilter +
-            req.body.hackerRankId +
-            hackerRankDSFilter
-        )
+        got(hackerRankFilter + req.body.hackerRankId + hackerRankDSFilter)
           .then((response) => {
             const dom = new JSDOM(response.body);
             a = dom.window.document.querySelectorAll(".score")[1].textContent;
@@ -123,18 +113,14 @@ exports.create = (req, res) => {
             const dom = new JSDOM(response.body);
             a = dom.window.document.querySelectorAll("dd")[0].textContent;
             a = Number(a);
-            spojScore += Math.round(a*10);
-            totalScore += Math.round(a*10);
+            spojScore += Math.round(a * 10);
+            totalScore += Math.round(a * 10);
             return a * 10;
           })
           .catch((err) => {
             return -1;
           }),
-        got(
-          geeksForGeeksLink +
-            req.body.geeksForGeeksId +
-            "/practice"
-        )
+        got(geeksForGeeksLink + req.body.geeksForGeeksId + "/practice")
           .then((response) => {
             const dom = new JSDOM(response.body);
             a = dom.window.document.querySelectorAll(".score_card_value");
@@ -154,8 +140,8 @@ exports.create = (req, res) => {
             a = a.textContent;
             a = a.split(" ");
             a = Number(a[0]);
-            codeForcesScore += Math.round(a*10);
-            totalScore += Math.round(a*10);
+            codeForcesScore += Math.round(a * 10);
+            totalScore += Math.round(a * 10);
             return a * 10;
           })
           .catch((err) => {
@@ -168,10 +154,10 @@ exports.create = (req, res) => {
               total = total.concat(participation[i]["submissionResults"]);
             }
             var totalSet = new Set(total);
-            buildIt = Number(totalSet.size) * 10;
-            buildITScore += buildIt;
-            totalScore += buildIt;
-            return buildIt;
+            Recode = Number(totalSet.size) * 10;
+            RecodeScore += Recode;
+            totalScore += Recode;
+            return Recode;
           })
           .catch((err) => {
             return NaN;
@@ -209,7 +195,7 @@ exports.create = (req, res) => {
               spojScore: spojScore,
               geeksForGeeksId: req.body.geeksForGeeksId,
               geeksForGeeksScore: geeksForGeeksScore,
-              buildIT: buildITScore,
+              Recode: RecodeScore,
               overallScore: totalScore,
             },
           }
@@ -232,7 +218,7 @@ exports.create = (req, res) => {
                 spojScore: spojScore,
                 geeksForGeeksId: req.body.geeksForGeeksId,
                 geeksForGeeksScore: geeksForGeeksScore,
-                buildIT: buildITScore,
+                Recode: RecodeScore,
                 overallScore: totalScore,
               });
               skillUp
@@ -298,7 +284,7 @@ exports.update = (req, res) => {
   var interviewBitScore = 0;
   var spojScore = 0;
   var geeksForGeeksScore = 0;
-  var buildITScore = 0;
+  var RecodeScore = 0;
   const calcScore = async () => {
     try {
       const score = await Promise.all([
@@ -312,8 +298,8 @@ exports.update = (req, res) => {
             a = a.split(")");
             a = a[0];
             a = Number(a);
-            totalScore += Math.round(a*10);
-            codeChefScore += Math.round(a*10);
+            totalScore += Math.round(a * 10);
+            codeChefScore += Math.round(a * 10);
             return a * 10;
           })
           .catch((err) => {
@@ -333,11 +319,7 @@ exports.update = (req, res) => {
           .catch((err) => {
             return NaN;
           }),
-        got(
-          hackerRankFilter +
-            req.body.hackerRankId +
-            hackerRankAlgoFilter
-        )
+        got(hackerRankFilter + req.body.hackerRankId + hackerRankAlgoFilter)
           .then((response) => {
             const dom = new JSDOM(response.body);
             a = dom.window.document.querySelectorAll(".score")[1].textContent;
@@ -349,11 +331,7 @@ exports.update = (req, res) => {
           .catch((err) => {
             return NaN;
           }),
-        got(
-          hackerRankFilter +
-            req.body.hackerRankId +
-            hackerRankDSFilter
-        )
+        got(hackerRankFilter + req.body.hackerRankId + hackerRankDSFilter)
           .then((response) => {
             const dom = new JSDOM(response.body);
             a = dom.window.document.querySelectorAll(".score")[1].textContent;
@@ -370,18 +348,14 @@ exports.update = (req, res) => {
             const dom = new JSDOM(response.body);
             a = dom.window.document.querySelectorAll("dd")[0].textContent;
             a = Number(a);
-            totalScore += Math.round(a*10);
-            spojScore += Math.round(a*10);
+            totalScore += Math.round(a * 10);
+            spojScore += Math.round(a * 10);
             return a * 10;
           })
           .catch((err) => {
             return NaN;
           }),
-        got(
-          geeksForGeeksLink +
-            req.body.geeksForGeeksId +
-            "/practice"
-        )
+        got(geeksForGeeksLink + req.body.geeksForGeeksId + "/practice")
           .then((response) => {
             const dom = new JSDOM(response.body);
             a = dom.window.document.querySelectorAll(".score_card_value");
@@ -401,8 +375,8 @@ exports.update = (req, res) => {
             a = a.textContent;
             a = a.split(" ");
             a = Number(a[0]);
-            totalScore += Math.round(a*10);
-            codeForcesScore += Math.round(a*10);
+            totalScore += Math.round(a * 10);
+            codeForcesScore += Math.round(a * 10);
             return a * 10;
           })
           .catch((err) => {
@@ -415,10 +389,10 @@ exports.update = (req, res) => {
               total = total.concat(participation[i]["submissionResults"]);
             }
             var totalSet = new Set(total);
-            buildIt = Number(totalSet.size) * 10;
-            totalScore += buildIt;
-            buildITScore += buildIt;
-            return buildIt;
+            Recode = Number(totalSet.size) * 10;
+            totalScore += Recode;
+            RecodeScore += Recode;
+            return Recode;
           })
           .catch((err) => {
             return NaN;
@@ -443,7 +417,7 @@ exports.update = (req, res) => {
               interviewBitScore: interviewBitScore,
               spojScore: spojScore,
               geeksForGeeksScore: geeksForGeeksScore,
-              buildIT: buildITScore,
+              Recode: RecodeScore,
               overallScore: totalScore,
             },
           },

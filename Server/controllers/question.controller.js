@@ -103,7 +103,7 @@ exports.createExcel = (req, res) => {
             let currQuestions = questions.length;
             for (let i = 0; i < data.length; i++) {
               question = new Question({
-                questionId: "BUILDIT" + (currQuestions + (i + 1)).toString(),
+                questionId: "Recode" + (currQuestions + (i + 1)).toString(),
                 questionName: data[i].questionName,
                 contestId: data[i].contestId,
                 questionDescriptionText: data[i].questionDescriptionText,
@@ -174,7 +174,7 @@ exports.createSet = (req, res) => {
             let currQuestions = questions.length;
             for (let i = 0; i < data.length; i++) {
               question = new Question({
-                questionId: "BUILDIT" + (currQuestions + (i + 1)).toString(),
+                questionId: "Recode" + (currQuestions + (i + 1)).toString(),
                 questionName: data[i].questionName,
                 contestId: req.params.contestId,
                 questionDescriptionText: data[i].questionDescriptionText,
@@ -356,7 +356,7 @@ exports.createTutorials = (req, res) => {
               err.message || "Some error occurred while retrieving questions.",
           });
         });
-      req.body.questionId = "BUILDIT" + currQuestions.toString();
+      req.body.questionId = "Recode" + currQuestions.toString();
 
       // Create a Question
       const question = new Question({
@@ -450,7 +450,7 @@ exports.createTutorialsExcel = (req, res) => {
               }
 
               question = new Question({
-                questionId: "BUILDIT" + (currQuestions + (i + 1)).toString(),
+                questionId: "Recode" + (currQuestions + (i + 1)).toString(),
                 questionName: data[i].questionName,
                 contestId: data[i].contestId,
                 questionDescriptionText: data[i].questionDescriptionText,

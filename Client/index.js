@@ -154,7 +154,7 @@ app.post("/skill", async (req, res, next) => {
     "spojScore",
     "geeksForGeeksScore",
     "leetCodeScore",
-    "buildIT",
+    "Recode",
     "overallScore",
   ];
 

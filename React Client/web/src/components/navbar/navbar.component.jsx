@@ -17,7 +17,7 @@ import { signOut } from "../../redux/user/user.actions";
 const Navbar = ({ currentUser, signOut }) => (
   <TopNavbar>
     <NavbarContainer>
-      <LogoContainer to="/">BuildIT_</LogoContainer>
+      <LogoContainer to="/">Recode_</LogoContainer>
       <OptionsContainer>
         {currentUser ? (
           <OptionItem to="/profile" logocolor="true">

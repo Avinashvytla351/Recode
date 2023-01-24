@@ -247,7 +247,7 @@ exports.create = (req, res) => {
           secure: true,
           auth: {
             type: "OAuth2",
-            user: "buildit.iare@gmail.com",
+            user: "Recode.iare@gmail.com",
             clientId: process.env.OAuthClientID,
             clientSecret: process.env.OAuthClientSecret,
             refreshToken: process.env.OAuthRefreshToken,
@@ -271,9 +271,9 @@ exports.create = (req, res) => {
         var htmlToSend = template(replacements);
 
         const mailOptions = {
-          from: "buildit.iare@gmail.com",
+          from: "Recode.iare@gmail.com",
           to: user.email,
-          subject: "Your Verfication Code - BuildIT",
+          subject: "Your Verfication Code - Recode",
           generateTextFromHTML: true,
           html: htmlToSend,
         };
@@ -564,7 +564,7 @@ exports.forgotPass = (req, res) => {
         service: "gmail",
         auth: {
           type: "OAuth2",
-          user: "buildit.iare@gmail.com",
+          user: "Recode.iare@gmail.com",
           clientId: process.env.OAuthClientID,
           clientSecret: process.env.OAuthClientSecret,
           refreshToken: process.env.OAuthRefreshToken,
@@ -588,9 +588,9 @@ exports.forgotPass = (req, res) => {
       var htmlToSend = template(replacements);
 
       const mailOptions = {
-        from: "buildit.iare@gmail.com",
+        from: "Recode.iare@gmail.com",
         to: user.email,
-        subject: "Your Password - BuildIT",
+        subject: "Your Password - Recode",
         generateTextFromHTML: true,
         html: htmlToSend,
       };
@@ -801,7 +801,7 @@ exports.generateSecret = (req, res) => {
         service: "gmail",
         auth: {
           type: "OAuth2",
-          user: "buildit.iare@gmail.com",
+          user: "Recode.iare@gmail.com",
           clientId: process.env.OAuthClientID,
           clientSecret: process.env.OAuthClientSecret,
           refreshToken: process.env.OAuthRefreshToken,
@@ -823,9 +823,9 @@ exports.generateSecret = (req, res) => {
       var htmlToSend = template(replacements);
 
       const options = {
-        from: "buildit.iare@gmail.com",
+        from: "Recode.iare@gmail.com",
         to: user.email,
-        subject: "Buildit Password Change",
+        subject: "Recode Password Change",
         html: htmlToSend,
       };
       transport.sendMail(options, (err, response) => {

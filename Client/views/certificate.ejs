@@ -18,7 +18,7 @@
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
 
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&family=Spartan:wght@500;600;700;800&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&family=Spartan:wght@500;600;700;800&display=swap");
     </style>
 
     <style>
@@ -82,7 +82,7 @@
         width: 6%;
       }
 
-      .top-center img{
+      .top-center img {
         width: 100%;
       }
 
@@ -92,21 +92,21 @@
         top: 15%;
       }
 
-      .red{
+      .red {
         color: red;
       }
 
-      h1{
-        font-family: 'Spartan', sans-serif;
+      h1 {
+        font-family: "Spartan", sans-serif;
         /* font-weight: 700; */
       }
 
-      .buildit h1{
+      .Recode h1 {
         margin-bottom: -8px;
       }
 
       /* MIDDLE 2 */
-      .middle-centered-2{
+      .middle-centered-2 {
         position: absolute;
         top: 45%;
         display: flex;
@@ -116,66 +116,80 @@
         column-gap: 50px;
       }
 
-      .platform{
+      .platform {
         display: flex;
         flex-direction: column;
       }
 
-      .logo img{
+      .logo img {
         width: 65px;
       }
 
-      .score{
-        font-family: 'Source Sans Pro', sans-serif;
+      .score {
+        font-family: "Source Sans Pro", sans-serif;
         font-size: 28px;
       }
     </style>
   </head>
   <body>
     <div id="page-wrapper">
-
       <!-- <div class="container"> -->
-        <img id="image" src="./images/certificate-images/certificate.png" alt="Test Image" />
-        <div class="top-center">
-          <img src="./images/certificate-images/iare.jpg" alt="IARE logo" />
+      <img
+        id="image"
+        src="./images/certificate-images/certificate.png"
+        alt="Test Image"
+      />
+      <div class="top-center">
+        <img src="./images/certificate-images/iare.jpg" alt="IARE logo" />
+      </div>
+      <div class="middle-centered-1">
+        <h1>CERTIFICATE OF ACHIEVEMENT</h1>
+        <h1><span class="red"><%= name %></span></h1>
+        <h3>( <%= data["rollNumber"] %> )</h3>
+      </div>
+      <div class="middle-centered-2">
+        <div class="platform">
+          <div class="logo hacker-rank">
+            <img src="./images/certificate-logos/hacker-rank.png" alt="logo" />
+          </div>
+          <div class="score"><p><%= data["hackerRank"] %></p></div>
         </div>
-        <div class="middle-centered-1">
-          <h1>CERTIFICATE OF ACHIEVEMENT</h1>
-          <h1><span class="red"><%= name %></span></h1>
-          <h3>( <%= data["rollNumber"] %> )</h3>
+        <div class="platform">
+          <div class="logo codechef">
+            <img src="./images/certificate-logos/codechef.jpg" alt="logo" />
+          </div>
+          <div class="score"><p><%= data["codeChef"] %></p></div>
         </div>
-        <div class="middle-centered-2">
-          <div class="platform">
-            <div class="logo hacker-rank"><img src="./images/certificate-logos/hacker-rank.png" alt="logo"></div>
-            <div class="score"><p><%= data["hackerRank"] %></p></div>
+        <div class="platform">
+          <div class="logo codeforces">
+            <img src="./images/certificate-logos/codeforces.jpg" alt="logo" />
           </div>
-          <div class="platform">
-            <div class="logo codechef"><img src="./images/certificate-logos/codechef.jpg" alt="logo"></div>
-            <div class="score"><p><%= data["codeChef"] %></p></div>
-          </div>
-          <div class="platform">
-            <div class="logo codeforces"><img src="./images/certificate-logos/codeforces.jpg" alt="logo"></div>
-            <div class="score"><p><%= data["codeforces"] %></p></div>
-          </div>
-          <div class="platform">
-            <div class="logo interviewbit"><img src="./images/certificate-logos/interviewbit.png" alt="logo"></div>
-            <div class="score"><p><%= data["interviewBit"] %></p></div>
-          </div>
-          <div class="platform">
-            <div class="logo spoj"><img src="./images/certificate-logos/spoj.jfif" alt="logo"></div>
-            <div class="score"><p><%= data["spoj"] %></p></div>
-          </div>
-          <div class="platform">
-            <div class="logo gfg"><img src="./images/certificate-logos/gfg.png" alt="logo"></div>
-            <div class="score"><p><%= data["geeksForGeeks"] %></p></div>
-          </div>
-          <div class="platform">
-            <div class="logo buildit"><h1>BUILD IT</h1></div>
-            <div class="score"><p><%= data["buildIT"] %></p></div>
-          </div>
+          <div class="score"><p><%= data["codeforces"] %></p></div>
         </div>
+        <div class="platform">
+          <div class="logo interviewbit">
+            <img src="./images/certificate-logos/interviewbit.png" alt="logo" />
+          </div>
+          <div class="score"><p><%= data["interviewBit"] %></p></div>
+        </div>
+        <div class="platform">
+          <div class="logo spoj">
+            <img src="./images/certificate-logos/spoj.jfif" alt="logo" />
+          </div>
+          <div class="score"><p><%= data["spoj"] %></p></div>
+        </div>
+        <div class="platform">
+          <div class="logo gfg">
+            <img src="./images/certificate-logos/gfg.png" alt="logo" />
+          </div>
+          <div class="score"><p><%= data["geeksForGeeks"] %></p></div>
+        </div>
+        <div class="platform">
+          <div class="logo Recode"><h1>BUILD IT</h1></div>
+          <div class="score"><p><%= data["Recode"] %></p></div>
+        </div>
+      </div>
       <!-- </div> -->
-
     </div>
   </body>
 </html>

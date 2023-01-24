@@ -143,14 +143,32 @@ exports.createExcel = (req, res) => {
                 weekId: week,
                 rank: data[i]["Rank"],
                 rollNumber: data[i]["Roll Number"],
-                hackerRank: data[i]["HackerRank (HR)"] === "NA"? -1 : data[i]["HackerRank (HR)"],
-                codeChef: data[i]["CodeChef (CC)"] === "NA"? -1 : data[i]["CodeChef (CC)"],
-                codeforces: data[i]["Codeforces (CF)"] === "NA"? -1 : data[i]["Codeforces (CF)"],
-                interviewBit: data[i]["InterviewBit (IB)"] === "NA"? -1 : data[i]["InterviewBit (IB)"],
-                spoj: data[i]["Spoj (S)"] === "NA"? -1 :data[i]["Spoj (S)"],
-                geeksForGeeks: data[i]["Geeks For Geeks (GFG)"] === "NA"? -1 :data[i]["Geeks For Geeks (GFG)"],
-                buildIT: data[i]["BuildIT"] === "NA"? -1 : data[i]["BuildIT"],
-                overallScore: data[i]["Overall Score"] === "NA"? -1 : data[i]["Overall Score"],
+                hackerRank:
+                  data[i]["HackerRank (HR)"] === "NA"
+                    ? -1
+                    : data[i]["HackerRank (HR)"],
+                codeChef:
+                  data[i]["CodeChef (CC)"] === "NA"
+                    ? -1
+                    : data[i]["CodeChef (CC)"],
+                codeforces:
+                  data[i]["Codeforces (CF)"] === "NA"
+                    ? -1
+                    : data[i]["Codeforces (CF)"],
+                interviewBit:
+                  data[i]["InterviewBit (IB)"] === "NA"
+                    ? -1
+                    : data[i]["InterviewBit (IB)"],
+                spoj: data[i]["Spoj (S)"] === "NA" ? -1 : data[i]["Spoj (S)"],
+                geeksForGeeks:
+                  data[i]["Geeks For Geeks (GFG)"] === "NA"
+                    ? -1
+                    : data[i]["Geeks For Geeks (GFG)"],
+                Recode: data[i]["Recode"] === "NA" ? -1 : data[i]["Recode"],
+                overallScore:
+                  data[i]["Overall Score"] === "NA"
+                    ? -1
+                    : data[i]["Overall Score"],
                 weeklyPerformance: data[i]["Weekly Performance"],
                 points: data[i]["Points"],
               });
@@ -308,7 +326,7 @@ exports.findSkillByUsername = (req, res) => {
           message: "You have not applied for SkillUp 365!",
         });
       }
-      
+
       res.send(skill[0].data);
     })
     .catch((err) => {

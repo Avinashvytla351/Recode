@@ -22,7 +22,7 @@ const HomePage = ({ history }) => (
       </HalfContainer>
       <HalfContainer>
         <QuarterContainer>
-          <Title>BuildIT_</Title>
+          <Title>Recode_</Title>
           <SubTitle>
             Exclusive Online Judge platform for the students of Institute of
             Aeronautical Engineering.
