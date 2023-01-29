@@ -241,13 +241,12 @@ exports.create = (req, res) => {
           refresh_token: process.env.OAuthRefreshToken,
         });
         const accessToken = oauth2Client.getAccessToken();
-
         const smtpTransport = nodemailer.createTransport({
           service: "gmail",
           secure: true,
           auth: {
             type: "OAuth2",
-            user: "Recode.iare@gmail.com",
+            user: "Recode.verify@gmail.com",
             clientId: process.env.OAuthClientID,
             clientSecret: process.env.OAuthClientSecret,
             refreshToken: process.env.OAuthRefreshToken,
@@ -271,7 +270,7 @@ exports.create = (req, res) => {
         var htmlToSend = template(replacements);
 
         const mailOptions = {
-          from: "Recode.iare@gmail.com",
+          from: "Recode.verify@gmail.com",
           to: user.email,
           subject: "Your Verfication Code - Recode",
           generateTextFromHTML: true,
@@ -588,7 +587,7 @@ exports.forgotPass = (req, res) => {
       var htmlToSend = template(replacements);
 
       const mailOptions = {
-        from: "Recode.iare@gmail.com",
+        from: "recode.verify@gmail.com",
         to: user.email,
         subject: "Your Password - Recode",
         generateTextFromHTML: true,
@@ -823,7 +822,7 @@ exports.generateSecret = (req, res) => {
       var htmlToSend = template(replacements);
 
       const options = {
-        from: "Recode.iare@gmail.com",
+        from: "recode.verify@gmail.com",
         to: user.email,
         subject: "Recode Password Change",
         html: htmlToSend,
