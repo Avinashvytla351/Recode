@@ -1,7 +1,5 @@
 # Recode
 
-Institute of Aeronautical Engineering hosts their very own Online Judge, Recode!
-
 Thanks to the [Judge0 API](https://github.com/Judge0/api) for the Ruby on Rails Compiler API.
 
 Software Required:
@@ -24,9 +22,5 @@ Work in progress.
 
 Credits
 
-- Tayeeb Hasan (@flozender)
-- Krishna Chandra Boyapati (@JethroGibbsN)
-- Abubakar Jaleel (@focusblast)
-- Mohammed Talha (@nightsailor)
 - Jayanth Naidu (@noobguy77)
 - Avinash Vytla (@Avinashvytla351)
