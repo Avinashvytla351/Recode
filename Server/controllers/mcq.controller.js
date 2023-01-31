@@ -19,7 +19,7 @@ exports.create = (req, res) => {
   Mcq.find()
     .then((mcqs) => {
       let currQuestions = mcqs.length + 1;
-      req.body.questionId = "IARE" + currQuestions.toString();
+      req.body.questionId = "RECODE" + currQuestions.toString();
 
       // Create a Question
       const question = new Mcq({
@@ -131,7 +131,7 @@ exports.createMultiple = async (req, res) => {
       fileKeys = Object.keys(req.files).map((e) => Number(e.charAt(5)));
 
     for (let i = 0; i < body.length; i++) {
-      body[i].mcqId = "IARE" + (count + i).toString();
+      body[i].mcqId = "RECODE" + (count + i).toString();
       if (req.files && fileKeys.includes(i)) {
         body[i].photo = {};
         body[i].photo.data = Binary(req.files["photo" + i].data);
@@ -169,7 +169,7 @@ exports.createExcel = (req, res) => {
             let currQuestions = mcqs.length;
             for (let i = 0; i < data.length; i++) {
               question = new Mcq({
-                mcqId: "IARE" + (currQuestions + (i + 1)).toString(),
+                mcqId: "RECODE" + (currQuestions + (i + 1)).toString(),
                 contestId: data[i].contestId,
                 mcqDescriptionText: data[i].mcqDescriptionText,
                 option1: data[i].op1,

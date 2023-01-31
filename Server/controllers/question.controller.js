@@ -18,7 +18,7 @@ exports.create = (req, res) => {
   Question.find()
     .then((questions) => {
       var currQuestions = questions[0].CountValue + 1;
-      req.body.questionId = "IARE" + currQuestions.toString();
+      req.body.questionId = "RECODE" + currQuestions.toString();
       Question.findOneAndUpdate(
         { questionId: questions[0].questionId },
         { $set: { CountValue: currQuestions } }
@@ -213,7 +213,7 @@ exports.createSet = (req, res) => {
               let i,
                 j = 0;
               for (i = initialLength + 1; i <= finalLength; i++) {
-                set[j++] = "IARE" + i.toString();
+                set[j++] = "RECODE" + i.toString();
               }
               if (contest.sets) {
                 sets.push(set);
@@ -343,7 +343,7 @@ exports.createTutorials = (req, res) => {
       }
 
       var currQuestions = questions[0].CountValue + 1;
-      req.body.questionId = "IARE" + currQuestions.toString();
+      req.body.questionId = "RECODE" + currQuestions.toString();
       Question.findOneAndUpdate(
         { questionId: questions[0].questionId },
         { $set: { CountValue: currQuestions } }

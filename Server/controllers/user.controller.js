@@ -563,7 +563,7 @@ exports.forgotPass = (req, res) => {
         service: "gmail",
         auth: {
           type: "OAuth2",
-          user: "Recode.iare@gmail.com",
+          user: "Recode.verify@gmail.com",
           clientId: process.env.OAuthClientID,
           clientSecret: process.env.OAuthClientSecret,
           refreshToken: process.env.OAuthRefreshToken,
@@ -800,7 +800,7 @@ exports.generateSecret = (req, res) => {
         service: "gmail",
         auth: {
           type: "OAuth2",
-          user: "Recode.iare@gmail.com",
+          user: "Recode.verify@gmail.com",
           clientId: process.env.OAuthClientID,
           clientSecret: process.env.OAuthClientSecret,
           refreshToken: process.env.OAuthRefreshToken,
@@ -924,7 +924,7 @@ exports.createUsers = (req, res) => {
       username: usernames[i],
       name: "Lexicon_Participant",
       password: "LEXI_PASSWORD",
-      email: usernames[i] + "LEXI@iare.ac.in",
+      email: usernames[i] + "LEXI@gmail.com",
       branch: "LEXI",
       verifyToken: token,
       isVerified: true,
