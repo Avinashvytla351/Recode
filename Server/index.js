@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const mysql = require("mysql")
 const cookieParser = require("cookie-parser");
 const request = require("request");
 const moment = require("moment-timezone");
@@ -74,6 +75,24 @@ mongoose
   })
   .then(() => {
     console.log("Successfully connected to the database");
+    var con = mysql.createConnection({
+      host: "localhost", //your hostname
+      user: "root",      //your username
+      password: "builditsql",  //your password 
+      database: "BuildITSQL" //your database name
+    })
+    con.connect((error) => {
+    if (!error) {
+        console.log("connected with sql server");
+        con.query("SELECT * FROM students", function (err, result, fields) {
+          if (err) throw err;
+          console.log(result);
+        });
+    }
+    else {
+        console.log("Error in Making Connection...", error)
+    }
+    })
   })
   .catch((err) => {
     console.log("Could not connect to the database. Exiting now...", err);
