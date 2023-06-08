@@ -805,7 +805,12 @@ app.get("/admin/add/qualifier_test", async (req, res) => {
       serverurl: serverRoute,
     };
     if (body.success) {
-      res.render("qualifier_test_add", { data: url, token: req.cookies.token });
+      res.render("qualifier_test_add", {
+        data: url,
+        token: req.cookies.token,
+        serverUrl: serverRoute,
+        imgUsername: req.cookies.username,
+      });
     } else {
       body.message = "Unauthorized access";
       console.log("token " + req.cookies.token);
@@ -1976,6 +1981,8 @@ app.get("/qualifier_test/:contestId", checkSignIn, async (req, res, next) => {
                   imgBranch: req.cookies.branch,
                   data: body,
                   datatimer: bodytimer,
+                  serverUrl: serverRoute,
+                  token: req.cookies.token,
                 });
               } else {
                 res.render("error", {
@@ -2078,6 +2085,8 @@ app.post(
                   imgBranch: req.cookies.branch,
                   data: body,
                   datatimer: bodytimer,
+                  serverUrl: serverRoute,
+                  token: req.cookies.token,
                 });
               } else {
                 res.render("error", {

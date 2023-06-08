@@ -916,28 +916,33 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   margin-bottom: 30px;
   border-bottom: 1mm solid rgba(0, 0, 0, 0.089);
 }
-.links a {
+.links button {
   text-decoration: none;
   color: rgb(100, 100, 100);
   font-size: large;
   font-weight: 500;
+  border: none;
   border-bottom: 1mm solid transparent;
   padding: 0 5px;
   padding-bottom: 5px;
   transform: translateY(1mm);
   display: flex;
   align-items: center;
+  outline: none;
+  background: none;
+  font-family: poppins;
+  cursor: pointer;
 }
-.links a span {
+.links button span {
   margin-right: 5px;
   font-size: larger;
   color: rgb(100, 100, 100);
 }
-.links a:hover {
+.links button:hover {
   color: black;
   border-bottom: 1mm solid rgb(26, 115, 232);
 }
-.links a:hover span {
+.links button:hover span {
   color: black;
 }
 .links .active {

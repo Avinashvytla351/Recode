@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="../../css/navadmin.css" />
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <script src="/adminjs/modernizr.custom.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
@@ -35,6 +39,7 @@
           enctype="multipart/form-data"
           onsubmit="return handleSubmit()"
           method="POST"
+          onkeydown="return !(event.keyCode==13)"
         >
           <span class="allInputs">
             <span class="inputf">
@@ -81,6 +86,8 @@
                 name="contestStartTime"
                 rows="5"
                 required
+                maxlength="4"
+                minlength="4"
               />
             </span>
             <span class="inputf">
@@ -91,32 +98,95 @@
                 name="contestEndTime"
                 rows="5"
                 required
+                maxlength="4"
+                minlength="4"
               />
             </span>
           </span>
           <span class="allInputs">
             <span class="inputf">
-              <p class="comments">Exam Sections</p>
-              <input
-                class="big"
-                required
-                name="contestSections"
-                rows="5"
-                placeholder="Enter Section Names Separated By Comma -
+              <p class="comments">
+                Exam Sections (*press 'Enter' after typing each section name)
+              </p>
+              <span class="input-tags"> </span>
+              <input type="hidden" name="contestSections" id="csec" required />
+              <script>
+                function updateInput() {
+                  let inputag = document.getElementById("csec");
+                  let tags = document.querySelectorAll(".tag");
+                  let ival = "";
+                  tags.forEach((item) => {
+                    let temp = item.querySelector(".tag-name");
+                    if (temp) {
+                      if (ival == "") {
+                        ival = temp.innerHTML;
+                      } else {
+                        ival += "," + temp.innerHTML;
+                      }
+                    }
+                  });
+                  inputag.value = ival;
+                }
 
-Eg : Numeral, Reasoning, Verbal, Programming"
-                required
-              />
+                let tagBox = document.querySelector(".input-tags");
+                tagBox.insertAdjacentHTML(
+                  "beforeend",
+                  '<input type="text" class="tag-input" name="" />'
+                );
+                function createTag(tag) {
+                  let pval =
+                    '<span class="tag"><span class="tag-name">' +
+                    tag +
+                    '</span><span class="material-icons-outlined cancel"> close </span></span>';
+                  tagBox.removeChild(tagBox.lastChild);
+
+                  tagBox.insertAdjacentHTML("beforeend", pval);
+                  tagBox.insertAdjacentHTML(
+                    "beforeend",
+                    '<input type="text" class="tag-input" name="" />'
+                  );
+                  document
+                    .querySelector(".tag-input")
+                    .addEventListener("keyup", addtag);
+                  document.querySelector(".tag-input").focus();
+                  updateInput();
+                  let tags = document.querySelectorAll(".tag");
+                  tags.forEach((item) => {
+                    let close = item.querySelector(".cancel");
+                    if (close) {
+                      close.addEventListener("click", (e) => {
+                        item.remove();
+                        document.querySelector(".tag-input").focus();
+                        updateInput();
+                      });
+                    }
+                  });
+                }
+
+                function addtag(e) {
+                  if (e.key == "Enter") {
+                    let tag = e.target.value.replace(/\s+/g, " ");
+                    if (tag.length > 1) {
+                      e.target.value = "";
+                      tag.split(",").forEach((tag) => {
+                        createTag(tag);
+                      });
+                    }
+                  }
+                }
+
+                document
+                  .querySelector(".tag-input")
+                  .addEventListener("keyup", addtag);
+              </script>
             </span>
           </span>
           <span class="inputf">
-            <label for="coding">Coding Required?</label>
-            <input
-              type="checkbox"
-              name="coding"
-              id="coding"
-              style="width: fit-content; margin: 20px 0"
-            />
+            <p class="comments" style="display: inline-block">Coding Section</p>
+            <label for="coding" class="check-label"
+              ><input type="checkbox" name="coding" id="coding" />
+              <span class="slider"></span>
+            </label>
           </span>
           <input type="hidden" name="mcq" value="true" id="mcq" />
           <br />
@@ -140,6 +210,12 @@ Eg : Numeral, Reasoning, Verbal, Programming"
             } else {
               coding.value = false;
             }
+            let inputag = document.getElementById("csec");
+            if (inputag.value == "") {
+              alert("Mention Sections");
+              document.querySelector(".tag-input").focus();
+              return false;
+            }
             return true;
           }
         </script>
@@ -154,6 +230,87 @@ Eg : Numeral, Reasoning, Verbal, Programming"
     </script>
     <script>
       document.getElementById("token").value = "<%= token %>";
+    </script>
+    <script>
+      start = document.getElementById("Start");
+      start.addEventListener("click", () => {
+        document.documentElement.requestFullscreen().catch((e) => {
+          console.log(e);
+        });
+        var a = screen.height - 80;
+        document.getElementById("frame").style.height = a + "px";
+        document.querySelector(".main").style.height = a + "px";
+        document.querySelector(".startbutton").style.display = "none";
+
+        try {
+          var url = "<%= serverUrl%>/checkContest";
+          $.ajax({
+            // data: { arr: body1 },
+            async: false,
+            // enctype: 'multipart/form-data',
+            url: url,
+            headers: { Authorization: "<%=token%>" },
+            type: "POST",
+            data: JSON.stringify({
+              username: "<%= imgUsername %>",
+              testId: "<%=data.contestId%>",
+            }),
+            cache: false,
+            contentType: "application/json",
+            processData: false,
+            dataType: "json",
+            success: function (response) {
+              console.log(1);
+            },
+            error: function (error) {
+              console.log(`Error ${JSON.stringify(error)}`);
+            },
+          });
+        } catch (err) {
+          console.log(err);
+        }
+      });
+      document.addEventListener(
+        "fullscreenchange",
+        function () {
+          if (
+            window.fullScreen ||
+            (window.innerWidth == screen.width &&
+              window.innerHeight == screen.height)
+          ) {
+            console.log(1);
+          } else {
+            if (counter == 0) {
+              document.getElementById("myForm").submit();
+            } else {
+              document.getElementById("firstchance").style.display = "flex";
+            }
+          }
+        },
+        false
+      );
+      function onVisibilityChange() {
+        if (document.visibilityState === "visible") {
+          console.log("user is focused on the page");
+        } else {
+          if (document.querySelector(".startbutton").style.display == "none") {
+            document.getElementById("myForm").submit();
+          }
+        }
+      }
+
+      document.addEventListener("visibilitychange", onVisibilityChange);
+      var okbut = document.getElementById("okbut");
+      okbut.addEventListener("click", () => {
+        document.documentElement.requestFullscreen().catch((e) => {
+          console.log(e);
+        });
+        var a = screen.height - 80;
+        document.getElementById("frame").style.height = a + "px";
+        document.querySelector(".main").style.height = a + "px";
+        document.getElementById("firstchance").style.display = "none";
+        counter = counter - 1;
+      });
     </script>
     <%- include('../views/partials/footer') %>
   </body>

@@ -13,6 +13,9 @@
     <script src="/adminjs/modernizr.custom.js"></script>
     <link href="/plugins/bootstrap-5/css/bootstrap.min.css" rel="stylesheet" />
     <style>
+      body {
+        background: white !important;
+      }
       .b-example-divider {
         height: 3rem;
         height: 61px;
@@ -47,6 +50,27 @@
 
       .bg-blue {
         background-color: #0076ce;
+      }
+      input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        display: none;
+      }
+      input[type="radio"]:checked {
+        width: 20px !important;
+        height: 20px !important;
+      }
+      input:checked ~ label {
+        background: rgb(198, 247, 136);
+      }
+      label {
+        cursor: pointer;
+        padding: 0 10px;
+        padding-left: 0;
+        border-radius: 4mm;
+      }
+      label:hover {
+        background: rgba(0, 0, 0, 0.09);
       }
     </style>
   </head>
@@ -130,7 +154,9 @@
               </div>
             </div>
             <div class="my-4">
-              <label for="sectionInput" class="form-label mb-3">Sections</label>
+              <label for="sectionInput" class="form-label mb-3"
+                >Sections *select a section</label
+              >
               <div class="row gy-3 ms-5" id="sectionInput"></div>
             </div>
             <div id="merge-new-mcq"></div>

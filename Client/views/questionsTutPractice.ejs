@@ -58,19 +58,18 @@
 
     <div class="slider">
       <section class="links">
-        <a
-          href="#slide-1"
-          onclick="borderBottom(this)"
+        <button
+          onclick="borderBottom(this, 'slide-1')"
           class="pralink-link active"
-          ><span class="material-icons-round"> interests </span>Topics</a
         >
-        <a href="#slide-2" onclick="borderBottom(this)" class="pralink-link"
-          ><span class="material-icons-round"> workspaces </span>Companies</a
-        >
-        <a href="#slide-3" onclick="borderBottom(this)" class="pralink-link"
-          ><span class="material-icons-round"> all_inclusive </span>All
-          Questions</a
-        >
+          <span class="material-icons-round"> interests </span>Topics
+        </button>
+        <button onclick="borderBottom(this, 'slide-2')" class="pralink-link">
+          <span class="material-icons-round"> workspaces </span>Companies
+        </button>
+        <button onclick="borderBottom(this, 'slide-3')" class="pralink-link">
+          <span class="material-icons-round"> all_inclusive </span>All Questions
+        </button>
       </section>
 
       <div class="slides">
@@ -129,12 +128,14 @@
     </div>
 
     <script>
-      function borderBottom(slide) {
+      function borderBottom(slide, slideto) {
         let each = document.querySelectorAll(".pralink-link");
         each.forEach((item) => {
           item.className = "pralink-link";
         });
         slide.className = "pralink-link active";
+        let slidediv = document.getElementById(slideto);
+        slidediv.scrollIntoView();
       }
     </script>
     <%- include('../views/partials/footer') %>

@@ -75,6 +75,8 @@
         justify-content: space-between;
         padding: 10px 0;
         height: 11vh;
+        z-index: 2;
+        position: relative;
       }
       #time h2, #time h5{
         margin: 0px 0;
@@ -454,7 +456,156 @@
 .questionexplain{
   border-bottom: 0.5mm solid rgb(7,48,66);
   padding-bottom: 35px;
-}
+}.startbutton {
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: poppins;
+        flex-direction: column;
+        background: white;
+      }
+      #Start,#leaderboard {
+        font-family: poppins;
+        margin-top: 100px;
+        font-size: x-large;
+        background: rgb(246, 189, 65);
+        color: rgb(0, 0, 0);
+        padding: 5px 14px;
+        border-radius: 2mm;
+        border: 0.5mm solid black;
+        margin-bottom: 30px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 30px;
+        margin-right: 30px;
+      }
+      #Start span{
+        font-size: xx-large;
+        margin-left: 0px;
+      }
+      .start-buttons{
+        width: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-btn {
+        display: none;
+      }
+      #username {
+        display: block;
+      }
+      .Description {
+        max-width: 600px;
+        padding: 10px;
+        border-radius: 2mm;
+        border: 0.5mm dashed black;
+        background: rgba(150, 150, 150, 0.062);
+      }
+      .Description li{
+        margin: 10px 0;
+
+      }
+      .dtitle{
+        font-size: x-large;
+        text-align: center;
+        width: 100%;
+        font-style:oblique;
+      }
+      .finished{
+        font-family: poppins;
+        font-size: x-large;
+        padding: 10px;
+        border-radius: 2mm;
+        border: 0.5mm dashed black;
+        background: rgba(150, 150, 150, 0.062);
+        display: none;
+      }
+      .tlogo{
+        position: absolute;
+        left: 15px;
+        bottom: 15px;
+        font-size: x-large;
+        font-family: Sacramento;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.425);
+      }
+      .section{
+        width: 95%;
+        border: 0.5mm solid black;
+        border-radius: 2mm;
+        margin: auto;
+      }
+      .timer{
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        justify-content: center;
+      }
+      .timer span{
+        font-size: medium;
+      }
+      .chanceone{
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.167);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        display: none;
+        background: rgba(255, 255, 255, 0.39);
+        backdrop-filter: blur( 14.5px );
+        -webkit-backdrop-filter: blur( 14.5px );
+        border-radius: 10px;
+        border: 1px solid rgba( 255, 255, 255, 0.18 );
+        top: 0;
+        left: 0;
+      }
+      .chbox{
+        width: 290px;
+        height: 180px;
+        background:rgb(246, 189, 65);
+        display: flex;
+        flex-direction: column;
+        padding: 15px 30px;
+        border-radius: 2mm;
+        font-family: poppins;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        text-align: justify;
+        position: relative;
+      }
+      .chalert,.chbutton{
+        width: 100%;
+        font-size: large;
+      }
+      .chbutton button{
+        width: 100%;
+        background: rgb(48, 48, 48);
+        font-family: poppins;
+        padding: 5px;
+        border-radius: 2mm;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: larger;
+        font-weight: 500;
+        color: black;
+        color: rgb(246, 189, 65);
+      }
     </style>
     <link
       rel="shortcut icon"
@@ -508,6 +659,43 @@
           />
         </div>
       </div>
+      <section class="page">
+        <div class="chanceone" id="firstchance">
+          <div class="chbox">
+            <div class="alert-title">Warning</div>
+            <div class="chalert">
+              Do not <strong>Exit</strong> full Screen or else contest will be ended
+            </div>
+            
+            <div class="chbutton">
+              <button type="button" id="okbut">OK</button>
+            </div>
+          </div>
+        </div>
+        <div class="startbutton">
+          <div class="start-buttons">
+            <button id="Start">Start Exam <span class="material-icons-round">play_arrow</span></button>
+          </div>
+          <span class="finished">You have Completed the test (Contact Admin for any Issue)</span>
+          <div class="Description" id="descit">
+            <div class="dtitle">Instructions</div>
+            <ol>
+            <li>Once You Start the Exam the page will Enter
+            Full Screen</li>
+            <Strong
+              >
+              <li>Do Not Exit Full Screen</Strong
+            >, If you exit the full screen the exam will
+              end immediately <strong> without any notification</strong></li>
+            <li>Click On <strong> Start Exam Button </strong> within 5mins the timer
+            has already started</li>
+            <li>Only One Attempt is available</li>
+            <li>Make sure you use only <strong>Google Chrome</strong> or <strong>FireFox</strong> Browsers only</li>
+            </ol>
+          </div>
+          <div class="tlogo">Recode</div>
+        </div>
+      </section>
       <div id="main">
         <%_ %><% var codesec =  datatimer.sections[data.section-1] %>
         <%_ %><% codesec=codesec.toUpperCase() %>
@@ -519,8 +707,8 @@
             <%_ %><%= data.questionNum %>
           </div>
           <%if (codesec!="CODING") {%>
-          <h4 style="text-align:justify ; margin-top: 0;">
-            <%_ %><%= data.mcqDescriptionText %>
+          <h4 style="text-align:justify ; margin-top: 0;" id="qdesc">
+            <%- unescape(data.mcqDescriptionText.replace(/ /g, "&nbsp;").replace(/\n/g, "<br>")) %>
           </h4>
           <% if (data.photo){ %>
             <br>
@@ -544,22 +732,22 @@
             <p class="bullet-number">1.&nbsp;</p>
             <input type="radio" name="answer" value=1 id="ans1"
             <% if(datatimer.selection===1){ %>checked<%}%> >
-            <label for="ans1" class="ans-label"><%= data.option1 %></label>
+            <label for="ans1" class="ans-label"><%- data.option1.replace(/ /g, "&nbsp;").replace(/\n/g, "<br>") %></label>
             <br />
             <p class="bullet-number">2.&nbsp;</p>
             <input type="radio" name="answer" value=2 id="ans2"
             <% if(datatimer.selection===2){ %>checked<%}%> >
-            <label for="ans2" class="ans-label"><%= data.option2 %></label>
+            <label for="ans2" class="ans-label"><%- data.option2.replace(/ /g, "&nbsp;").replace(/\n/g, "<br>") %></label>
             <br />
             <p class="bullet-number">3.&nbsp;</p>
             <input type="radio" name="answer" value=3 id="ans3"
             <% if(datatimer.selection===3){ %>checked<%}%> >
-            <label for="ans3" class="ans-label"><%= data.option3 %></label>
+            <label for="ans3" class="ans-label"><%- data.option3.replace(/ /g, "&nbsp;").replace(/\n/g, "<br>") %></label>
             <br />
             <p class="bullet-number">4.&nbsp;</p>
             <input type="radio" name="answer" value=4 id="ans4"
             <% if(datatimer.selection===4){ %>checked<%}%> >
-            <label for="ans4" class="ans-label"><%= data.option4 %></label>
+            <label for="ans4" class="ans-label"><%- data.option4.replace(/ /g, "&nbsp;").replace(/\n/g, "<br>") %></label>
             <br /><br />
 
             <input type="hidden" name="isPartial" value="<%= data.isPartial %>" >
@@ -659,6 +847,7 @@
       var dots = document.getElementById("sectionmenu");
       var toggle = 0;
       var press = 0;
+      var counter=1
       dots.onclick = function () {
         if (toggle == 0) {
           dotsmenu.style.transform = "translateY(0)";
@@ -716,6 +905,7 @@
           clearInterval(x);
           document.getElementById("labelTime").innerHTML = "Expired";
           document.getElementById("end").innerText = "My Score";
+          counter=0
         }
       }, 1000);
     </script>
@@ -829,7 +1019,8 @@
   });
 </script> -->
     <!-- end -->
-
+   <!-- jQuery -->
+   <script src="plugins/jQuery/jquery.min.js"></script>
     <script>
       (() => {
         var now = new Date().getTime();
@@ -885,6 +1076,92 @@
         if (selected === "" || selected === undefined) return false;
         return true;
       }
+    </script>
+    <form
+    action="/endContest/<%= data.contestId%>"
+    method="post"
+    style="display: none"
+    id="myForm2"
+  ></form>
+    <script>
+    
+      start = document.getElementById("Start");
+      start.addEventListener("click", () => {
+        document.documentElement.requestFullscreen().catch((e) => {
+          console.log(e);
+        });
+        var a = screen.height-80;
+        document.querySelector(".startbutton").style.display = "none";
+  
+        try{
+            var url = "<%= serverUrl%>/checkContest"
+            $.ajax({
+              // data: { arr: body1 },
+              async: false,
+              // enctype: 'multipart/form-data',
+              url: url,
+              headers: { "Authorization": "<%=token%>" },
+              type: "POST",
+              data: JSON.stringify({username:"<%= imgUsername %>", testId:"<%=data.contestId%>"}),
+              cache: false,
+              contentType: "application/json",
+              processData: false,
+              dataType: 'json',
+              success: function (response) {
+                console.log(1)
+              },
+              error: function (error) {
+                console.log(`Error ${JSON.stringify(error)}`);
+              }
+            })
+            }
+          catch (err) {
+            console.log(err);
+          }
+      });
+      document.addEventListener(
+        "fullscreenchange",
+        function () {
+          if (
+            window.fullScreen ||
+            (window.innerWidth == screen.width &&
+              window.innerHeight == screen.height)
+          ) {
+            console.log(1);
+          } else {
+            if (counter==0){
+            document.getElementById("myForm2").submit()
+            }
+            else{
+              document.getElementById("firstchance").style.display="flex"
+            }
+          }
+        },
+        false
+      );
+      function onVisibilityChange() {
+    if (document.visibilityState === 'visible') {
+       console.log("user is focused on the page")
+    } else {
+      if (document.querySelector(".startbutton").style.display == "none"){
+       document.getElementById("myForm2").submit()
+    }
+    }
+  }
+  
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  var okbut = document.getElementById("okbut")
+  okbut.addEventListener("click",()=>{
+        document.documentElement.requestFullscreen().catch((e) => {
+          console.log(e);
+        });
+        var a = screen.height-80;
+        document.getElementById("firstchance").style.display="none"
+        counter=counter-1
+  })
+  
+  
+          
     </script>
   </body>
 </html>
